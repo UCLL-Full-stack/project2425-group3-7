@@ -38,4 +38,15 @@ export class Film {
     getRating(): number {
         return this.rating;
     }
+
+    equals(film: Film): boolean {
+        return (
+            this.id === film.getId() &&
+            this.title === film.getTitle() &&
+            this.genre === film.getGenre() &&
+            this.releasedate === film.getReleaseDate() &&
+            this.description === film.getDescription() &&
+            this.rating === film.getRating()
+        );
+    }
 }

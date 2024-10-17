@@ -38,4 +38,16 @@ export class User {
     getPassword(): string {
         return this.password;
     }
+
+    equals(user: User): boolean {
+        return (
+            this.id === user.getId() &&
+            this.username === user.getUsername() &&
+            this.firstName === user.getFirstName() &&
+            this.lastName === user.getLastName() &&
+            this.email === user.getEmail() &&
+            this.birthday === user.getBirthday() &&
+            this.password === user.getPassword()
+        );
+    }
 }
