@@ -4,7 +4,7 @@ import { User } from './user';
 
 export class Watchlist {
     private id?: number;
-    private films: Film[]=[];
+    private films: Film[];
     private user: User;
     private creationDate: Date;
 
@@ -33,7 +33,7 @@ export class Watchlist {
 
     addFilmToWatchlist(film: Film): void{
         if(!this.films.includes(film)){
-        this.films.push(film);
+            this.films.push(film);
         }
     }
 }
