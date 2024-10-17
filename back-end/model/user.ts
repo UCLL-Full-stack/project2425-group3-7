@@ -3,15 +3,15 @@ export class User {
     private username: string;
     private name: string;
     private email: string;
-    private age: number;
+    private birthday: Date;
     private password: string;
 
-    constructor(user:{id?: number, username: string, name: string, email: string, age: number, password: string}) {
+    constructor(user:{id?: number, username: string, name: string, email: string, birthday: Date, password: string}) {
         this.id = user.id;
         this.username = user.username;
         this.name = user.name;
         this.email = user.email;
-        this.age = user.age;
+        this.birthday = user.birthday;
         this.password = user.password;
     }
 
@@ -31,8 +31,8 @@ export class User {
         return this.email;
     }
 
-    getAge(): number {
-        return this.age;
+    getBirthday(): Date {
+        return this.birthday;
     }
 
     getPassword(): string {
