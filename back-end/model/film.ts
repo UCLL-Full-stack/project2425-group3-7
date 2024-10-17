@@ -4,15 +4,15 @@ export class Film {
     private genre: string;
     private releasedate: Date;
     private description: string;
-    private rating: string;
+    private rating: number;
 
-    constructor(film:{id?: number,title: string, genre: string, releasedate: Date, description: string, rating: string}) {
+    constructor(film:{id?: number, title: string, genre: string, releasedate: Date, description: string, rating: number}) {
         this.id = film.id;
         this.title = film.title;
         this.genre = film.genre;
         this.releasedate = film.releasedate;
         this.description = film.description;
-        this.rating = film.rating;
+        this.rating = Math.round(film.rating * 10) / 10;
     }
 
     getId(): number | undefined {
@@ -35,7 +35,7 @@ export class Film {
         return this.description;
     }
 
-    getRating(): string {
+    getRating(): number {
         return this.rating;
     }
 }
