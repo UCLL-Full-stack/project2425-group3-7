@@ -30,4 +30,10 @@ export class Watchlist {
     getCreationDate(): Date {
         return this.creationDate;
     }
+
+    addFilmToWatchlist(film: Film): void{
+        if(!this.films.includes(film)){
+        this.films.push(film);
+        }
+    }
 }

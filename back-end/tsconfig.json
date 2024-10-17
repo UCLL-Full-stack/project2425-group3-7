@@ -4,6 +4,8 @@
         "target": "es6",
         "rootDir": "./",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "lib": ["es2016", "dom"],
+
     }
 }
