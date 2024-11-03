@@ -1,4 +1,3 @@
-import { get } from "http";
 import { Review } from "../model/review";
 import { User } from "../model/user";
 import getUserByID from "../service/user.service"; // Adjust the path as necessary

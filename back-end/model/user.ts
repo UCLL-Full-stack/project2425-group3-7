@@ -9,6 +9,7 @@ export class User {
 
     constructor(user:{id?: number, username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string}) {
         this.validate(user);
+        
         this.id = user.id;
         this.username = user.username;
         this.firstName = user.firstName;

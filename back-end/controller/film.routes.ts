@@ -1,3 +1,35 @@
+/**
+ * @swagger
+ *   components:
+ *    securitySchemes:
+ *     bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ *    schemas:
+ *      Course:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: number
+ *              format: int64
+ *            title:
+ *              type: string
+ *              description: Film title.
+ *            genre:
+ *              type: string
+ *              description: Film genre.
+ *            releasedate:
+ *              type: Date
+ *              description: Film release date.
+ *            description:
+ *              type: string
+ *              description: Film description.
+ *            rating:  # Fixed indentation
+ *              type: number
+ *              description: Film rating.
+ */
+
 import express, { NextFunction, Request, Response } from 'express';
 import filmService from '../service/film.service';
 
@@ -17,7 +49,9 @@ const filmRouter = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Film'
  */
-filmRouter.get('/', (req: Request, res: Response) => {
+filmRouter.get('/',async (req: Request, res: Response) => {
     const films=filmService.getAllFilms();
     res.status(200).json(films);
 });
+
+export {filmRouter};
