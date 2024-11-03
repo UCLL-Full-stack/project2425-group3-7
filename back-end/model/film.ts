@@ -7,12 +7,31 @@ export class Film {
     private rating: number;
 
     constructor(film:{id?: number, title: string, genre: string, releasedate: Date, description: string, rating: number}) {
+        this.validate(film);
+
         this.id = film.id;
         this.title = film.title;
         this.genre = film.genre;
         this.releasedate = film.releasedate;
         this.description = film.description;
         this.rating = Math.round(film.rating * 10) / 10;
+    }
+    validate(film:{title: string, genre: string, releasedate: Date, description: string, rating: number}){
+        if (!film.title || film.title.length === 0) {
+            throw new Error('Title is required');
+        }
+        if (!film.genre || film.genre.length === 0) {
+            throw new Error('Genre is required');
+        }
+        if (!film.releasedate) {
+            throw new Error('Release date is required');
+        }
+        if (!film.description || film.description.length === 0) {
+            throw new Error('Description is required');
+        }
+        if (!film.rating || film.rating < 0 || film.rating > 5) {
+            throw new Error('Rating is required and must be between 0 and 5');
+        }
     }
 
     getId(): number | undefined {
