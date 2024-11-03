@@ -8,15 +8,11 @@ const getFilmByID = ({ id }: { id: number }): Film | null => {
     if (id <= 0) {
         return null;
     }
-    if (!filmDb.getFilmByID({id})) {
+    const film = filmDb.getFilmByID({id});
+    if (!film) {
         throw new Error('Film not found');
     }
-    try {
-        return filmDb.getFilmByID({id}) || null;
-    } catch (error) {
-        console.error(error);
-        throw new Error('Database error. See server log for details.');
-    }
+    return film;
 }
 
 export default{getAllFilms,getFilmByID};

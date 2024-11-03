@@ -37,3 +37,102 @@ test("given: valid values for review, when: review is created, then: review is c
     expect(review.getComment()).toEqual("Great movie");
     expect(review.getReviewer()).toEqual(reviewer);
 });
+
+test("given: missing film, when: review is created, then: an error is thrown", () => {
+    const birthday = new Date("2000-01-01");
+    const reviewer = new User({
+        username: "slimmerik",
+        firstName: "Slimme",
+        lastName: "Rik",
+        email: "slimme.rik@gmail.com",
+        birthday: birthday,
+        password: "Slimme-Rik123",
+    });
+
+    expect(() => {
+        new Review({
+            film: null as any,
+            rating: 4.5,
+            comment: "Great movie",
+            reviewer: reviewer,
+        });
+    }).toThrow("Film is required");
+});
+
+test("given: invalid rating, when: review is created, then: an error is thrown", () => {
+    const releasedate = new Date("2006-06-09");
+    const film = new Film({
+        title: "Cars",
+        genre: "Animation",
+        releasedate: releasedate,
+        description: "A racecar named Lightning McQueen...",
+        rating: 4.13,
+    });
+    const birthday = new Date("2000-01-01");
+    const reviewer = new User({
+        username: "slimmerik",
+        firstName: "Slimme",
+        lastName: "Rik",
+        email: "slimme.rik@gmail.com",
+        birthday: birthday,
+        password: "Slimme-Rik123",
+    });
+
+    expect(() => {
+        new Review({
+            film: film,
+            rating: 6, // Invalid rating
+            comment: "Great movie",
+            reviewer: reviewer,
+        });
+    }).toThrow("Rating is required and must be between 0 and 5");
+});
+
+test("given: missing comment, when: review is created, then: an error is thrown", () => {
+    const releasedate = new Date("2006-06-09");
+    const film = new Film({
+        title: "Cars",
+        genre: "Animation",
+        releasedate: releasedate,
+        description: "A racecar named Lightning McQueen...",
+        rating: 4.13,
+    });
+    const birthday = new Date("2000-01-01");
+    const reviewer = new User({
+        username: "slimmerik",
+        firstName: "Slimme",
+        lastName: "Rik",
+        email: "slimme.rik@gmail.com",
+        birthday: birthday,
+        password: "Slimme-Rik123",
+    });
+
+    expect(() => {
+        new Review({
+            film: film,
+            rating: 4.5,
+            comment: "", // Missing comment
+            reviewer: reviewer,
+        });
+    }).toThrow("Comment is required");
+});
+
+test("given: missing reviewer, when: review is created, then: an error is thrown", () => {
+    const releasedate = new Date("2006-06-09");
+    const film = new Film({
+        title: "Cars",
+        genre: "Animation",
+        releasedate: releasedate,
+        description: "A racecar named Lightning McQueen...",
+        rating: 4.13,
+    });
+
+    expect(() => {
+        new Review({
+            film: film,
+            rating: 4.5,
+            comment: "Great movie",
+            reviewer: null as any, // Missing reviewer
+        });
+    }).toThrow("Reviewer is required");
+});

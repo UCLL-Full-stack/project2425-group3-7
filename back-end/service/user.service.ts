@@ -8,11 +8,12 @@ const getUserByID = ({ id }: { id: number }): User | null => {
     if (id <= 0) {
         return null;
     }
-    if (!userDb.getUserByID({id})) {
+    const user = userDb.getUserByID({id});
+    if (!user) {
         throw new Error('User not found');
     }
     try {
-        return userDb.getUserByID({id}) || null;
+        return user;
     } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
