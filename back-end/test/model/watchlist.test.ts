@@ -23,10 +23,7 @@ const user = new User({
 });
 const creationDate = set(new Date(), {year: 2024, month: 10, date: 17, hours: 12, minutes: 33});
 
-
 test("given: valid values for watchlist, when: watchlist is created, then: watchlist is created with those values", () => {
-    // given
-    
     // when
     const watchlist = new Watchlist({
         films: [film1],
@@ -41,7 +38,6 @@ test("given: valid values for watchlist, when: watchlist is created, then: watch
 });
 
 test("given: an existing watchlist, when: adding a film to watchlist, then: film is added to watchlist", () => {
-    // given
     const releasedate2 = new Date("2014-10-24");
     const description2 = "John Wick is a former hitman grieving the loss of his true love. When his home is broken into, robbed, and his dog killed, he is forced to return to action to exact revenge.";
     const film2 = new Film({
@@ -66,7 +62,6 @@ test("given: an existing watchlist, when: adding a film to watchlist, then: film
 });
 
 test("given: an existing watchlist, when: adding a film already in watchlist, then: film is not added to watchlist", () => {
-    // given
     const watchlist = new Watchlist({
         films: [film1],
         user: user,
@@ -78,4 +73,34 @@ test("given: an existing watchlist, when: adding a film already in watchlist, th
 
     // then
     expect(watchlist.getFilms().length).toBe(1);
+});
+
+test("given: missing films, when: watchlist is created, then: an error is thrown", () => {
+    expect(() => {
+        new Watchlist({
+            films: null as any,
+            user: user,
+            creationDate: creationDate,
+        });
+    }).toThrow("Films are required");
+});
+
+test("given: missing user, when: watchlist is created, then: an error is thrown", () => {
+    expect(() => {
+        new Watchlist({
+            films: [film1],
+            user: null as any,
+            creationDate: creationDate,
+        });
+    }).toThrow("User is required");
+});
+
+test("given: missing creation date, when: watchlist is created, then: an error is thrown", () => {
+    expect(() => {
+        new Watchlist({
+            films: [film1],
+            user: user,
+            creationDate: null as any,
+        });
+    }).toThrow("Creation date is required");
 });
