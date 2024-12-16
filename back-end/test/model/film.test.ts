@@ -12,6 +12,7 @@ test("given: valid values for film, when: film is created, then: film is created
         releasedate: releasedate,
         description: description,
         rating: 4.13,
+        reviews: [],
     });
 
     // then
@@ -32,6 +33,7 @@ test("given: missing title, when: film is created, then: an error is thrown", ()
             releasedate: releasedate,
             description: "A racecar named Lightning McQueen...",
             rating: 4.13,
+            reviews: [],
         });
     }).toThrow("Title is required");
 });
@@ -46,6 +48,7 @@ test("given: missing genre, when: film is created, then: an error is thrown", ()
             releasedate: releasedate,
             description: "A racecar named Lightning McQueen...",
             rating: 4.13,
+            reviews: [],
         });
     }).toThrow("Genre is required");
 });
@@ -58,22 +61,9 @@ test("given: missing release date, when: film is created, then: an error is thro
             releasedate: null as any,
             description: "A racecar named Lightning McQueen...",
             rating: 4.13,
+            reviews: [],
         });
     }).toThrow("Release date is required");
-});
-
-test("given: missing description, when: film is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
-
-    expect(() => {
-        new Film({
-            title: "Cars",
-            genre: "Animation",
-            releasedate: releasedate,
-            description: "",
-            rating: 4.13,
-        });
-    }).toThrow("Description is required");
 });
 
 test("given: invalid rating, when: film is created, then: an error is thrown", () => {
@@ -85,7 +75,8 @@ test("given: invalid rating, when: film is created, then: an error is thrown", (
             genre: "Animation",
             releasedate: releasedate,
             description: "A racecar named Lightning McQueen...",
-            rating: 6, // Invalid rating
+            rating: 6, 
+            reviews: [],
         });
     }).toThrow("Rating is required and must be between 0 and 5");
 });

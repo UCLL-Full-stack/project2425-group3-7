@@ -12,6 +12,7 @@ test("given: valid values for review, when: review is created, then: review is c
         releasedate: releasedate,
         description: description,
         rating: 4.13,
+        reviews: [],
     });
     const birthday = new Date("2000-01-01");
     const reviewer = new User({
@@ -21,6 +22,8 @@ test("given: valid values for review, when: review is created, then: review is c
         email: "slimme.rik@gmail.com",
         birthday: birthday,
         password: "Slimme-Rik123",
+        role: "user",
+        reviews: [],
     });
 
     // when
@@ -47,6 +50,8 @@ test("given: missing film, when: review is created, then: an error is thrown", (
         email: "slimme.rik@gmail.com",
         birthday: birthday,
         password: "Slimme-Rik123",
+        role: "user",
+        reviews: [],
     });
 
     expect(() => {
@@ -67,6 +72,7 @@ test("given: invalid rating, when: review is created, then: an error is thrown",
         releasedate: releasedate,
         description: "A racecar named Lightning McQueen...",
         rating: 4.13,
+        reviews: [],
     });
     const birthday = new Date("2000-01-01");
     const reviewer = new User({
@@ -76,6 +82,8 @@ test("given: invalid rating, when: review is created, then: an error is thrown",
         email: "slimme.rik@gmail.com",
         birthday: birthday,
         password: "Slimme-Rik123",
+        role: "user",
+        reviews: [],
     });
 
     expect(() => {
@@ -96,6 +104,7 @@ test("given: missing comment, when: review is created, then: an error is thrown"
         releasedate: releasedate,
         description: "A racecar named Lightning McQueen...",
         rating: 4.13,
+        reviews: [],
     });
     const birthday = new Date("2000-01-01");
     const reviewer = new User({
@@ -105,6 +114,8 @@ test("given: missing comment, when: review is created, then: an error is thrown"
         email: "slimme.rik@gmail.com",
         birthday: birthday,
         password: "Slimme-Rik123",
+        role: "user",
+        reviews: [],
     });
 
     expect(() => {
@@ -125,6 +136,7 @@ test("given: missing reviewer, when: review is created, then: an error is thrown
         releasedate: releasedate,
         description: "A racecar named Lightning McQueen...",
         rating: 4.13,
+        reviews: [],
     });
 
     expect(() => {

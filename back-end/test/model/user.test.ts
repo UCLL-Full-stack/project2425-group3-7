@@ -12,6 +12,8 @@ test("given: valid values for user, when: user is created, then: user is created
         email: "slimme.rik@gmail.com",
         birthday: birthday,
         password: "Slimme-Rik123",
+        role: "user",
+        reviews: [],
     });
 
     // then
@@ -32,6 +34,8 @@ test("given: missing username, when: user is created, then: an error is thrown",
             email: "slimme.rik@gmail.com",
             birthday: new Date("2000-01-01"),
             password: "Slimme-Rik123",
+            role: "user",
+            reviews: [],
         });
     }).toThrow("Username is required");
 });
@@ -45,6 +49,8 @@ test("given: missing first name, when: user is created, then: an error is thrown
             email: "slimme.rik@gmail.com",
             birthday: new Date("2000-01-01"),
             password: "Slimme-Rik123",
+            role: "user",
+            reviews: [],
         });
     }).toThrow("First name is required");
 });
@@ -58,6 +64,8 @@ test("given: missing last name, when: user is created, then: an error is thrown"
             email: "slimme.rik@gmail.com",
             birthday: new Date("2000-01-01"),
             password: "Slimme-Rik123",
+            role: "user",
+            reviews: [],
         });
     }).toThrow("Last name is required");
 });
@@ -71,6 +79,8 @@ test("given: missing email, when: user is created, then: an error is thrown", ()
             email: "",
             birthday: new Date("2000-01-01"),
             password: "Slimme-Rik123",
+            role: "user",
+            reviews: [],
         });
     }).toThrow("Email is required");
 });
@@ -84,6 +94,8 @@ test("given: missing birthday, when: user is created, then: an error is thrown",
             email: "slimme.rik@gmail.com",
             birthday: null as any,
             password: "Slimme-Rik123",
+            role: "user",
+            reviews: [],
         });
     }).toThrow("Birthday is required");
 });
@@ -97,6 +109,8 @@ test("given: missing password, when: user is created, then: an error is thrown",
             email: "slimme.rik@gmail.com",
             birthday: new Date("2000-01-01"),
             password: "",
+            role: "user",
+            reviews: [],
         });
     }).toThrow("Password is required");
 });

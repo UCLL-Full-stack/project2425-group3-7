@@ -11,6 +11,7 @@ const film1 = new Film({
     releasedate: releasedate1,
     description: description1,
     rating: 4.13,
+    reviews: [],
 });
 const birthday = new Date("2000-01-01");
 const user = new User({
@@ -20,6 +21,8 @@ const user = new User({
     email: "slimme.rik@gmail.com",
     birthday: birthday,
     password: "Slimme-Rik123",
+    role: "user",
+    reviews: [],
 });
 const creationDate = set(new Date(), {year: 2024, month: 10, date: 17, hours: 12, minutes: 33});
 
@@ -46,6 +49,7 @@ test("given: an existing watchlist, when: adding a film to watchlist, then: film
         releasedate: releasedate2,
         description: description2,
         rating: 4.5,
+        reviews: [],
     });
     const watchlist = new Watchlist({
         films: [film1],

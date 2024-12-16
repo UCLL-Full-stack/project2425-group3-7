@@ -24,6 +24,7 @@ test('when getting all reviews, then returns list of reviews', () => {
             releasedate: new Date(),
             description: "Sample Description",
             rating: 4.5,
+            reviews: [],
         }),
         rating: 4.5, 
         comment: "Great!", 
@@ -34,6 +35,8 @@ test('when getting all reviews, then returns list of reviews', () => {
             email: "slimme.rik@gmail.com",
             birthday: new Date("2000-01-01"),
             password: "validPassword123",
+            role: "user",
+            reviews: [],
         }),
     })];
     mockReviewDbGetAllReviews.mockReturnValue(reviews);

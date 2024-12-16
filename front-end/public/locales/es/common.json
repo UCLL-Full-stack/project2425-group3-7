@@ -1,0 +1,14 @@
+{
+    "app.title": "Cursos App",
+    "general.error": "Se ha producido un error. Vuelva a intentarlo más tarde.",
+    "header": {
+        "welcome": "Bienvenido",
+        "nav": {
+        "home": "Inicio",
+        "users": "Conferenciantes",
+        "films": "Horarios",
+        "reviews": "Conéctese",
+        "watchlist": "Cerrar sesión"
+        }
+    }
+}

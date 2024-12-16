@@ -1,3 +1,5 @@
+type Role = 'admin' | 'user' | 'guest';
+
 type UserInput = {
     email: string;
     password: string;
@@ -23,4 +25,4 @@ type ReviewInput = {
     review: string;
 };
 
-export { UserInput, FilmInput, WatchlistInput, ReviewInput };
+export { UserInput, FilmInput, WatchlistInput, ReviewInput, Role };

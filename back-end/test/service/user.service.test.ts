@@ -15,7 +15,7 @@ afterEach(() => {
 });
 
 test('when getting all users, then returns list of users', () => {
-    const users = [new User({ username: "johndoe", firstName: "John", lastName: "Doe", email: "john.doe@example.com", birthday: new Date("2000-01-01"), password: "password" })];
+    const users = [new User({ username: "johndoe", firstName: "John", lastName: "Doe", email: "john.doe@example.com", birthday: new Date("2000-01-01"), password: "password", role: "user", reviews: [] })];
     mockUserDbGetAllUsers.mockReturnValue(users);
 
     const result = userService.getAllUsers();
@@ -25,7 +25,7 @@ test('when getting all users, then returns list of users', () => {
 });
 
 test('given a valid ID, when getting user by ID, then returns user', () => {
-    const user = new User({ username: "johndoe", firstName: "John", lastName: "Doe", email: "john.doe@example.com", birthday: new Date("2000-01-01"), password: "password" });
+    const user = new User({ username: "johndoe", firstName: "John", lastName: "Doe", email: "john.doe@example.com", birthday: new Date("2000-01-01"), password: "password", role: "user", reviews: [] });
     mockUserDbGetUserByID.mockReturnValue(user);
 
     const result = userService.getUserByID({ id: 1 });

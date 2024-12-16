@@ -1,3 +1,6 @@
+import { Role } from "../types";
+import { Review } from "./review";
+
 export class User {
     private id?: number;
     private username: string;
@@ -6,8 +9,10 @@ export class User {
     private email: string;
     private birthday: Date;
     private password: string;
+    private role: Role;
+    private reviews: Review[];
 
-    constructor(user:{id?: number, username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string}) {
+    constructor(user:{id?: number, username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string, role: Role, reviews: Review[]}) {
         this.validate(user);
         
         this.id = user.id;
@@ -17,9 +22,11 @@ export class User {
         this.email = user.email;
         this.birthday = user.birthday;
         this.password = user.password;
+        this.role = user.role;
+        this.reviews = user.reviews || [];
 
     }
-    validate(user:{username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string}){
+    validate(user:{username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string, role: Role, reviews: Review[]}){
         if (!user.username || user.username.length === 0) {
             throw new Error('Username is required');
         }
@@ -68,6 +75,13 @@ export class User {
         return this.password;
     }
 
+    getRole(): Role {
+        return this.role;
+    }
+    getReviews(): Review[] {
+        return this.reviews;
+    }
+
     equals(user: User): boolean {
         return (
             this.id === user.getId() &&
@@ -76,7 +90,9 @@ export class User {
             this.lastName === user.getLastName() &&
             this.email === user.getEmail() &&
             this.birthday === user.getBirthday() &&
-            this.password === user.getPassword()
+            this.password === user.getPassword() &&
+            this.role === user.getRole() &&
+            this.reviews === user.getReviews()
         );
     }
 }

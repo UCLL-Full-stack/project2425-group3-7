@@ -10,6 +10,8 @@ const users = [
         email: 'user1.user@email.com',
         birthday: new Date('1990-01-01'),
         password: 'password',
+        role: 'admin',
+        reviews: [],
     }),
     new User({
         id: 2,
@@ -19,6 +21,8 @@ const users = [
         email: 'user2.user@email.com',
         birthday: new Date('1990-01-01'),
         password: 'password',
+        role: 'user',
+        reviews: [],
     }),
 ];
 const getAllUsers = (): User[] => {

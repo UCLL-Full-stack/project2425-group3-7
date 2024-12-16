@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  firstName String
+  lastName  String
+  email     String     @unique
+  password  String
+  role      String
+  reviews   Review[]
+  watchlist Watchlist? @relation("UserWatchlist")
+}
+
+model Film {
+  id          Int             @id @default(autoincrement())
+  title       String
+  genre       String
+  releaseDate DateTime
+  description String          @unique
+  rating      Int
+  reviews     Review[]
+  watchlists  FilmWatchlist[]
+}
+
+model Review {
+  id         Int    @id @default(autoincrement())
+  rating     Int
+  comment    String
+  filmId     Int
+  reviewerId Int
+  film       Film   @relation(fields: [filmId], references: [id], map: "FK_Review_Film")
+  reviewer   User   @relation(fields: [reviewerId], references: [id], map: "FK_Review_User")
+}
+
+model Watchlist {
+  id           Int             @id @default(autoincrement())
+  userId       Int             @unique
+  user         User            @relation(fields: [userId], references: [id], map: "FK_Watchlist_User", name: "UserWatchlist")
+  films        FilmWatchlist[]
+  creationDate DateTime        @default(now())
+}
+
+model FilmWatchlist {
+  filmId      Int
+  watchlistId Int
+
+  film      Film      @relation(fields: [filmId], references: [id])
+  watchlist Watchlist @relation(fields: [watchlistId], references: [id])
+
+  @@id([filmId, watchlistId])
+}

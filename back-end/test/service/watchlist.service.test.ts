@@ -21,6 +21,8 @@ test('when getting all watchlists, then returns list of watchlists', () => {
         email: "slimme.rik@gmail.com",
         birthday: new Date("2000-01-01"),
         password: "validPassword123",
+        role: "user",
+        reviews: [],
     }), creationDate: new Date() })];
     mockWatchlistDbGetAllWatchlists.mockReturnValue(watchlists);
 
