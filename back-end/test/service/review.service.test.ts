@@ -21,7 +21,7 @@ test('when getting all reviews, then returns list of reviews', () => {
             id: 1,
             title: "Sample Title",
             genre: "Drama",
-            releasedate: new Date(),
+            releaseDate: new Date(),
             description: "Sample Description",
             rating: 4.5,
             reviews: [],

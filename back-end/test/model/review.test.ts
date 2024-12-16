@@ -4,12 +4,12 @@ import { User } from "../../model/user";
 
 test("given: valid values for review, when: review is created, then: review is created with those values", () => {
     // given
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
     const description = "A racecar named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.";
     const film = new Film({
         title: "Cars",
         genre: "Animation",
-        releasedate: releasedate,
+        releaseDate: releaseDate,
         description: description,
         rating: 4.13,
         reviews: [],
@@ -65,11 +65,11 @@ test("given: missing film, when: review is created, then: an error is thrown", (
 });
 
 test("given: invalid rating, when: review is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
     const film = new Film({
         title: "Cars",
         genre: "Animation",
-        releasedate: releasedate,
+        releaseDate: releaseDate,
         description: "A racecar named Lightning McQueen...",
         rating: 4.13,
         reviews: [],
@@ -97,11 +97,11 @@ test("given: invalid rating, when: review is created, then: an error is thrown",
 });
 
 test("given: missing comment, when: review is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
     const film = new Film({
         title: "Cars",
         genre: "Animation",
-        releasedate: releasedate,
+        releaseDate: releaseDate,
         description: "A racecar named Lightning McQueen...",
         rating: 4.13,
         reviews: [],
@@ -129,11 +129,11 @@ test("given: missing comment, when: review is created, then: an error is thrown"
 });
 
 test("given: missing reviewer, when: review is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
     const film = new Film({
         title: "Cars",
         genre: "Animation",
-        releasedate: releasedate,
+        releaseDate: releaseDate,
         description: "A racecar named Lightning McQueen...",
         rating: 4.13,
         reviews: [],

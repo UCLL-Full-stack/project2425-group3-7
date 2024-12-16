@@ -10,5 +10,15 @@
         "reviews": "Conéctese",
         "watchlist": "Cerrar sesión"
         }
+    },
+    "login": {
+        "title": "Inicio de sesión",
+        "button": "Conéctese",
+        "success": "Inicio de sesión exitoso. Redirigiendo a la página de inicio...",
+        "validate": {
+            "name": "Nombre obligatorio",
+            "password": "Se requiere contraseña"
+        },
+        "label": { "username": "Nombre de usuario:", "password": "Contraseña:" }
     }
 }

@@ -1,5 +1,6 @@
 import { Role } from "../types";
 import { Review } from "./review";
+import { User as UserPrisma,Review as ReviewPrisma } from '@prisma/client';
 
 export class User {
     private id?: number;
@@ -94,5 +95,22 @@ export class User {
             this.role === user.getRole() &&
             this.reviews === user.getReviews()
         );
+    }
+    static from({ id, username, firstName, lastName, email, birthday, password, role, reviews,}: UserPrisma & {reviews: ReviewPrisma[]}) {
+        return new User({
+            id,
+            username,
+            firstName,
+            lastName,
+            email,
+            birthday,
+            password,
+            role: role as Role,
+            reviews: reviews.map((review) => Review.from({ 
+                ...review, 
+                film: { id: review.filmId, title: '', genre: '', releaseDate: new Date(), description: '', rating: 0 }, 
+                reviewer: { id: review.reviewerId, username: '', firstName: '', lastName: '', email: '', password: '', birthday: new Date(), role: '' } 
+            })),
+        });
     }
 }

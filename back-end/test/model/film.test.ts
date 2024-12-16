@@ -2,14 +2,14 @@ import { Film } from "../../model/film";
 
 test("given: valid values for film, when: film is created, then: film is created with those values", () => {
     // given
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
     const description = "A racecar named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.";
 
     // when
     const film = new Film({
         title: "Cars",
         genre: "Animation",
-        releasedate: releasedate,
+        releaseDate: releaseDate,
         description: description,
         rating: 4.13,
         reviews: [],
@@ -18,19 +18,19 @@ test("given: valid values for film, when: film is created, then: film is created
     // then
     expect(film.getTitle()).toEqual("Cars");
     expect(film.getGenre()).toEqual("Animation");
-    expect(film.getReleaseDate()).toEqual(releasedate);
+    expect(film.getReleaseDate()).toEqual(releaseDate);
     expect(film.getDescription()).toEqual(description);
     expect(film.getRating()).toEqual(4.1); // rounded to 1 decimal
 });
 
 test("given: missing title, when: film is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
 
     expect(() => {
         new Film({
             title: "",
             genre: "Animation",
-            releasedate: releasedate,
+            releaseDate: releaseDate,
             description: "A racecar named Lightning McQueen...",
             rating: 4.13,
             reviews: [],
@@ -39,13 +39,13 @@ test("given: missing title, when: film is created, then: an error is thrown", ()
 });
 
 test("given: missing genre, when: film is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
 
     expect(() => {
         new Film({
             title: "Cars",
             genre: "",
-            releasedate: releasedate,
+            releaseDate: releaseDate,
             description: "A racecar named Lightning McQueen...",
             rating: 4.13,
             reviews: [],
@@ -58,7 +58,7 @@ test("given: missing release date, when: film is created, then: an error is thro
         new Film({
             title: "Cars",
             genre: "Animation",
-            releasedate: null as any,
+            releaseDate: null as any,
             description: "A racecar named Lightning McQueen...",
             rating: 4.13,
             reviews: [],
@@ -67,13 +67,13 @@ test("given: missing release date, when: film is created, then: an error is thro
 });
 
 test("given: invalid rating, when: film is created, then: an error is thrown", () => {
-    const releasedate = new Date("2006-06-09");
+    const releaseDate = new Date("2006-06-09");
 
     expect(() => {
         new Film({
             title: "Cars",
             genre: "Animation",
-            releasedate: releasedate,
+            releaseDate: releaseDate,
             description: "A racecar named Lightning McQueen...",
             rating: 6, 
             reviews: [],

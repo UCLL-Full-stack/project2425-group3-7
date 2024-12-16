@@ -1,39 +1,51 @@
-import { get } from "http";
 import { User } from "../model/user";
+import database from './database';
 
-const users = [
-    new User({
-        id: 1,
-        username: 'user1',
-        firstName: 'User',
-        lastName: 'One',
-        email: 'user1.user@email.com',
-        birthday: new Date('1990-01-01'),
-        password: 'password',
-        role: 'admin',
-        reviews: [],
-    }),
-    new User({
-        id: 2,
-        username: 'user2',
-        firstName: 'User',
-        lastName: 'Two',
-        email: 'user2.user@email.com',
-        birthday: new Date('1990-01-01'),
-        password: 'password',
-        role: 'user',
-        reviews: [],
-    }),
-];
-const getAllUsers = (): User[] => {
-    return users;
-};
-const getUserByID = ({ id }: { id: number }): User | null => {
+
+const getAllUsers = async (): Promise<User[]> => {
     try {
-        return users.find((user) => user.getId() === id) || null;
+        const usersPrisma = await database.user.findMany(
+            {
+                include: {
+                    reviews: true,
+                }
+            }
+        );
+        return usersPrisma.map((userPrisma) => User.from(userPrisma));
     } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
     }
 };
-export default {getAllUsers,getUserByID};
+const getUserById = async ({ id }: { id: number }): Promise<User | null> => {
+    try {
+        const userPrisma = await database.user.findUnique({
+            where: { id },
+            include: {
+                reviews: true,
+            },
+        });
+
+        return userPrisma ? User.from(userPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
+const getUserByUsername = async ({ username }: { username: string }): Promise<User | null> => {
+    try {
+        const userPrisma = await database.user.findFirst({
+            where: { username },
+            include: {
+                reviews: true,
+            },
+        });
+
+        return userPrisma ? User.from(userPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+export default {getAllUsers,getUserById,getUserByUsername};

@@ -63,3 +63,4 @@ const AddFilmComp = () => {
         </form>
     )
 };
+export default AddFilmComp;

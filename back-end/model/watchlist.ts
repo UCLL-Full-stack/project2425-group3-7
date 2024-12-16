@@ -1,5 +1,6 @@
 import { Film } from './film';
 import { User } from './user';
+import { Watchlist as WatchlistPrisma, User as UserPrisma, Film as FilmPrisma } from '@prisma/client';
 
 
 export class Watchlist {
@@ -44,9 +45,12 @@ export class Watchlist {
         return this.creationDate;
     }
 
-    addFilmToWatchlist(film: Film): void{
-        if(!this.films.includes(film)){
-            this.films.push(film);
-        }
+    static from({ id, films, user, creationDate }: WatchlistPrisma & { user: UserPrisma; films: FilmPrisma[]; }): Watchlist {
+        return new Watchlist({
+            id,
+            user: User.from({ ...user, reviews: [] }),
+            films: films.map((film) => Film.from({ ...film, reviews: [] })),
+            creationDate,
+        });
     }
 }

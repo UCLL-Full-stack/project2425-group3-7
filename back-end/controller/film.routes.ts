@@ -19,7 +19,7 @@
  *            genre:
  *              type: string
  *              description: Film genre.
- *            releasedate:
+ *            releaseDate:
  *              type: Date
  *              description: Film release date.
  *            description:
@@ -52,6 +52,11 @@ const filmRouter = express.Router();
 filmRouter.get('/',async (req: Request, res: Response) => {
     const films=filmService.getAllFilms();
     res.status(200).json(films);
+});
+
+filmRouter.post('addFilm',async (req: Request, res: Response) => {
+    const film=filmService.addFilm(req.body);
+    res.status(200).json(film);
 });
 
 export {filmRouter};

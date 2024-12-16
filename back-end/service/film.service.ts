@@ -1,18 +1,25 @@
-import { get } from "http";
 import { Film } from "../model/film";
 import filmDb from "../repository/film.db"; 
-const getAllFilms = (): Film[] => {
-    return filmDb.getAllFilms();
-};
-const getFilmByID = ({ id }: { id: number }): Film | null => {
+const getAllFilms = async (): Promise<Film[]> => {
+    return await filmDb.getAllFilms();
+}
+const getFilmByID = async ({ id }: { id: number }): Promise<Film | null> => {
     if (id <= 0) {
         return null;
     }
-    const film = filmDb.getFilmByID({id});
+    const film = await filmDb.getFilmById({id});
     if (!film) {
-        throw new Error('Film not found');
+        throw new Error('User not found');
     }
-    return film;
+    try {
+        return film;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+const addFilm = (film: Film) => {
+    filmDb.addFilm(film);
 }
 
-export default{getAllFilms,getFilmByID};
+export default{getAllFilms,getFilmByID,addFilm};

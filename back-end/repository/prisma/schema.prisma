@@ -1,43 +1,33 @@
+datasource db {
+  provider = "postgresql" // or your database provider
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 model User {
-  id        Int        @id @default(autoincrement())
-  username  String     @unique
+  id        Int          @id @default(autoincrement())
+  username  String       @unique
   firstName String
   lastName  String
-  email     String     @unique
+  email     String       @unique
+  birthday  DateTime
   password  String
   role      String
   reviews   Review[]
-  watchlist Watchlist? @relation("UserWatchlist")
-}
-
-model Film {
-  id          Int             @id @default(autoincrement())
-  title       String
-  genre       String
-  releaseDate DateTime
-  description String          @unique
-  rating      Int
-  reviews     Review[]
-  watchlists  FilmWatchlist[]
+  watchlist Watchlist?   @relation(name: "UserWatchlist")
 }
 
 model Review {
-  id         Int    @id @default(autoincrement())
-  rating     Int
+  id         Int      @id @default(autoincrement())
   comment    String
-  filmId     Int
+  rating     Int
   reviewerId Int
-  film       Film   @relation(fields: [filmId], references: [id], map: "FK_Review_Film")
-  reviewer   User   @relation(fields: [reviewerId], references: [id], map: "FK_Review_User")
+  reviewer   User     @relation(fields: [reviewerId], references: [id], map: "FK_Review_User")
+  filmId     Int
+  film       Film     @relation(fields: [filmId], references: [id], map: "FK_Review_Film")
 }
 
 model Watchlist {
@@ -46,6 +36,17 @@ model Watchlist {
   user         User            @relation(fields: [userId], references: [id], map: "FK_Watchlist_User", name: "UserWatchlist")
   films        FilmWatchlist[]
   creationDate DateTime        @default(now())
+}
+
+model Film {
+  id          Int              @id @default(autoincrement())
+  title       String
+  genre       String
+  description String
+  releaseDate DateTime
+  rating      Float
+  reviews     Review[]
+  watchlists  FilmWatchlist[]
 }
 
 model FilmWatchlist {

@@ -3,12 +3,12 @@ import { Film } from "../../model/film";
 import { User } from "../../model/user";
 import { Watchlist } from "../../model/watchlist";
 
-const releasedate1 = new Date("2006-06-09");
+const releaseDate1 = new Date("2006-06-09");
 const description1 = "A racecar named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.";
 const film1 = new Film({
     title: "Cars",
     genre: "Animation",
-    releasedate: releasedate1,
+    releaseDate: releaseDate1,
     description: description1,
     rating: 4.13,
     reviews: [],
@@ -41,12 +41,12 @@ test("given: valid values for watchlist, when: watchlist is created, then: watch
 });
 
 test("given: an existing watchlist, when: adding a film to watchlist, then: film is added to watchlist", () => {
-    const releasedate2 = new Date("2014-10-24");
+    const releaseDate2 = new Date("2014-10-24");
     const description2 = "John Wick is a former hitman grieving the loss of his true love. When his home is broken into, robbed, and his dog killed, he is forced to return to action to exact revenge.";
     const film2 = new Film({
         title: "John Wick",
         genre: "Action",
-        releasedate: releasedate2,
+        releaseDate: releaseDate2,
         description: description2,
         rating: 4.5,
         reviews: [],

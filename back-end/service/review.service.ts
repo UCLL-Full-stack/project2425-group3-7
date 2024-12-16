@@ -1,9 +1,9 @@
 import { Review } from '../model/review';
 import ReviewDb from '../repository/review.db';
 
-const getAllReviews = (): Review[] => {
+const getAllReviews = async (): Promise<Review[]> => {
     try {
-        return ReviewDb.getAllReviews();
+        return await ReviewDb.getAllReviews();
     } catch (error) {
         console.error('Error retrieving reviews:', error);
         throw new Error('Database error. See server log for details.');

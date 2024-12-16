@@ -1,27 +1,20 @@
 import { Review } from "../model/review";
-import { User } from "../model/user";
-import getUserByID from "../service/user.service"; // Adjust the path as necessary
-import filmDb from "./film.db";
-import { Film } from "../model/film";
-import userDb from "./user.db";
+import database from './database';
 
-const reviews = [
-    new Review({
-        id: 1,
-        film: filmDb.getFilmByID({id: 1}) as Film,
-        reviewer: userDb.getUserByID({id: 1}) as User,
-        rating: 5,
-        comment: 'This is a great movie!',
-    }),
-    new Review({
-        id: 2,
-        film: filmDb.getFilmByID({id: 2}) as Film,
-        reviewer: userDb.getUserByID({id: 2}) as User,
-        rating: 4,
-        comment: 'I enjoyed this movie.',
-    }),
-];
-const getAllReviews = (): Review[] => {
-    return reviews;
+const getAllReviews = async (): Promise<Review[]> => {
+    try {
+        const ReviewPrisma = await database.review.findMany(
+            {
+                include: {
+                    film: true,
+                    reviewer: true,
+                }
+            }
+        );
+        return ReviewPrisma.map((ReviewPrisma) => Review.from(ReviewPrisma));
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
 };
 export default {getAllReviews};

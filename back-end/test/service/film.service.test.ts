@@ -16,7 +16,7 @@ afterEach(() => {
 
 test('when getting all films, then returns list of films', () => {
     //given
-    const films = [new Film({ title: "Cars", genre: "Animation", releasedate: new Date("2006-06-09"), description: "Description", rating: 4.13, reviews: [] })];
+    const films = [new Film({ title: "Cars", genre: "Animation", releaseDate: new Date("2006-06-09"), description: "Description", rating: 4.13, reviews: [] })];
     mockFilmDbGetAllFilms.mockReturnValue(films);
 
     //when
@@ -29,7 +29,7 @@ test('when getting all films, then returns list of films', () => {
 
 test('given a valid ID, when getting film by ID, then returns film', () => {
     //given
-    const film = new Film({ title: "Cars", genre: "Animation", releasedate: new Date("2006-06-09"), description: "Description", rating: 4.13, reviews: [] });
+    const film = new Film({ title: "Cars", genre: "Animation", releaseDate: new Date("2006-06-09"), description: "Description", rating: 4.13, reviews: [] });
     mockFilmDbGetFilmByID.mockReturnValue(film);
 
     //when

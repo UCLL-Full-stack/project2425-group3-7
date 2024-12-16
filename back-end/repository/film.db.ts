@@ -1,34 +1,53 @@
 import { Film } from '../model/film';
+import database from './database';
 
-const films = [
-    new Film({
-        id: 1,
-        title: 'Cars',
-        genre: 'Animation',
-        releasedate: new Date('2006-06-09'),
-        description: 'A racecar named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.',
-        rating: 4.13,
-        reviews: [],
-    }),
-    new Film({
-        id: 2,
-        title: 'Toy Story',
-        genre: 'Animation',
-        releasedate: new Date('1995-11-22'),
-        description: 'A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him',
-        rating: 4.3,
-        reviews: [],
-    }),
-];
-const getAllFilms = (): Film[] => {
-    return films;
-};
-const getFilmByID = ({ id }: { id: number }): Film | null => {
+const getAllFilms = async (): Promise<Film[]> => {
     try {
-        return films.find((film) => film.getId() === id) || null;
+        const filmPrisma = await database.film.findMany(
+            {
+                include: {
+                    reviews: true,
+                }
+            }
+        );
+        return filmPrisma.map((filmPrisma) => Film.from(filmPrisma));
     } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
     }
 };
-export default {getAllFilms,getFilmByID};
+const getFilmById = async ({ id }: { id: number }): Promise<Film | null> => {
+    try {
+        const filmPrisma = await database.film.findUnique({
+            where: { id },
+            include: {
+                reviews: true,
+            },
+        });
+        return filmPrisma ? Film.from(filmPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+const addFilm = async (film: Film): Promise<Film> => {
+    try {
+        const filmPrisma = await database.film.create({
+            data: {
+                title: film.getTitle(),
+                genre: film.getGenre(),
+                releaseDate: film.getReleaseDate(),
+                description: film.getDescription(),
+                rating: film.getRating(),
+            },
+            include: {
+                reviews: true,
+            },
+        });
+        return Film.from(filmPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+export default {getAllFilms,getFilmById,addFilm};

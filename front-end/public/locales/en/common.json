@@ -12,5 +12,15 @@
         "login": "Login",
         "logout": "Logout"
         }
+    },
+    "login": {
+        "title": "Login",
+        "button": "Login",
+        "success": "Login succesful. Redirecting to homepage...",
+        "validate": {
+            "name": "Name is required",
+            "password": "Password is required"
+        },
+        "label": { "username": "Username:", "password": "Password:" }
     }
 }

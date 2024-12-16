@@ -1,5 +1,7 @@
 import { User } from './user';
 import { Film } from './film';
+import { Review as ReviewPrisma, Film as FilmPrisma, User as UserPrisma } from '@prisma/client';
+
 export class Review {
 
     private id?: number;
@@ -51,6 +53,15 @@ export class Review {
     getReviewer(): User {
         return this.reviewer;
     }
-
-
+    static from({id, film, rating, comment, reviewer}: ReviewPrisma &  { film: FilmPrisma; reviewer: UserPrisma; }): Review {
+            return new Review(
+                {
+                    id,
+                    film: Film.from({ ...film, reviews: [] }),
+                    rating,
+                    comment,
+                    reviewer: User.from({ ...reviewer, reviews: [] }),
+                }
+            );
+        }    
 }
