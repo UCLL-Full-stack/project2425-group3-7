@@ -4,9 +4,8 @@ import bcrypt from 'bcrypt';
 import { generateJwtToken } from "../util/jwt";
 import { AuthenticationResponse, UserInput } from "../types";
 
-const getAllUsers = async (): Promise<User[]> => {
-    return await userDb.getAllUsers();
-}
+const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
+
 
 const getUserById = async ({ id }: { id: number }): Promise<User | null> => {
     if (id <= 0) {

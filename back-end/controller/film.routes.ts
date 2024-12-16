@@ -50,8 +50,9 @@ const filmRouter = express.Router();
  *                 $ref: '#/components/schemas/Film'
  */
 filmRouter.get('/',async (req: Request, res: Response) => {
-    const films=filmService.getAllFilms();
+    const films=await filmService.getAllFilms();
     res.status(200).json(films);
+    
 });
 
 filmRouter.post('addFilm',async (req: Request, res: Response) => {

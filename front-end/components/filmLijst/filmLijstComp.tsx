@@ -1,49 +1,49 @@
-type Props = {};
+import React, { useEffect, useState } from 'react';
+import filmService from '@/services/filmService';
 
-const FilmLijstComp: React.FC<Props> = (Props) => {
+const FilmLijstComp: React.FC = () => {
+    const [films, setFilms] = useState([]);
+
+    useEffect(() => {
+        const fetchFilms = async () => {
+            try {
+                const response = await filmService.getAllFilms();
+                const data = await response.json();
+                setFilms(data);
+            } catch (error) {
+                console.error('Failed to fetch films', error);
+            }
+        };
+
+        fetchFilms();
+    }, []);
+
     return (
-        <>
-            <div className="flex flex-col space-y-4 mx-auto w-9/12 bg-white p-6 rounded-xl shadow-lg mt-10">
-                <div className="flex items-center justify-between mb-10">
-                    <div className="flex-shrink-0">
-                        <a href="addFilm">
-                            <button className="p-4 bg-oranje text-white rounded-lg shadow h-12 flex justify-center items-center">
-                                Add
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                {/* Placeholder for future films */}
-                <div className="p-4 bg-gray-100 rounded-lg shadow max-w-md max-h-64 overflow-hidden border">
-                    <a href="/filmInhoud">
-                        <div className="truncate font-bold">Film 1</div>
-                    </a>
-                    <p className="truncate">
-                        random text abcdefghijklmnopqrstuvwxyz 1234567890
-                    </p>
-                </div>
-                <div className="p-4 bg-gray-100 rounded-lg shadow max-w-md max-h-64 overflow-hidden border">
-                    <a href="/filmInhoud">
-                        <div className="truncate font-bold">Film 2</div>
-                    </a>
-                </div>
-                <div className="p-4 bg-gray-100 rounded-lg shadow max-w-md max-h-64 overflow-hidden border">
-                    <a href="/filmInhoud">
-                        <div className="truncate font-bold">Film 3</div>
-                    </a>
-                </div>
-                <div className="p-4 bg-gray-100 rounded-lg shadow max-w-md max-h-64 overflow-hidden border">
-                    <a href="/filmInhoud">
-                        <div className="truncate font-bold">Film 4</div>
-                    </a>
-                </div>
-                <div className="p-4 bg-gray-100 rounded-lg shadow max-w-md max-h-64 overflow-hidden border">
-                    <a href="/filmInhoud">
-                        <div className="truncate font-bold">Film 5</div>
-                    </a>
-                </div>
-            </div>
-        </>
+        <div className="container mx-auto mt-10">
+            <h1 className="text-2xl font-bold mb-4">Film Lijst</h1>
+            <table className="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th className="py-2 px-4 border-b">Title</th>
+                        <th className="py-2 px-4 border-b">Genre</th>
+                        <th className="py-2 px-4 border-b">Release Date</th>
+                        <th className="py-2 px-4 border-b">Description</th>
+                        <th className="py-2 px-4 border-b">Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {films.map((film) => (
+                        <tr key={film.id}>
+                            <td className="py-2 px-4 border-b">{film.title}</td>
+                            <td className="py-2 px-4 border-b">{film.genre}</td>
+                            <td className="py-2 px-4 border-b">{new Date(film.releaseDate).toLocaleDateString()}</td>
+                            <td className="py-2 px-4 border-b">{film.description}</td>
+                            <td className="py-2 px-4 border-b">{film.rating}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 };
 

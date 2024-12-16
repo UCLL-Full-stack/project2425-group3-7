@@ -108,8 +108,8 @@ export class User {
             role: role as Role,
             reviews: reviews.map((review) => Review.from({ 
                 ...review, 
-                film: { id: review.filmId, title: '', genre: '', releaseDate: new Date(), description: '', rating: 0 }, 
-                reviewer: { id: review.reviewerId, username: '', firstName: '', lastName: '', email: '', password: '', birthday: new Date(), role: '' } 
+                film: { id: review.filmId, title: 'Kung Fu Panda', genre: 'fighting', releaseDate: new Date(), description: 'Panda that fights', rating: 4 }, 
+                reviewer: { id: review.reviewerId, username: 'DikkDik', firstName: 'Andries', lastName: 'Jaeken', email: 'andries@gmail.com', password: 'password', birthday: new Date(), role: 'Admin' } 
             })),
         });
     }
