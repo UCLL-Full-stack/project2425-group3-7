@@ -57,10 +57,10 @@ export class Review {
             return new Review(
                 {
                     id,
-                    film: Film.from(film),
+                    film: Film.from({ ...film, reviews: [] }),
                     rating,
                     comment,
-                    reviewer: User.from(reviewer),
+                    reviewer: User.from({ ...reviewer, reviews: [] }),
                 }
             );
         }    

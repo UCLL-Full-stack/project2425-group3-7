@@ -1,6 +1,6 @@
 import { Role } from "../types";
 import { Review } from "./review";
-import { User as UserPrisma,Review as ReviewPrisma } from '@prisma/client';
+import { User as UserPrisma, Review as ReviewPrisma } from '@prisma/client';
 
 export class User {
     private id?: number;
@@ -13,9 +13,9 @@ export class User {
     private role: Role;
     private reviews: Review[];
 
-    constructor(user:{id?: number, username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string, role: Role, reviews: Review[]}) {
+    constructor(user: { id?: number, username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string, role: Role, reviews: Review[] }) {
         this.validate(user);
-        
+
         this.id = user.id;
         this.username = user.username;
         this.firstName = user.firstName;
@@ -25,9 +25,9 @@ export class User {
         this.password = user.password;
         this.role = user.role;
         this.reviews = user.reviews || [];
-
     }
-    validate(user:{username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string, role: Role, reviews: Review[]}){
+
+    validate(user: { username: string, firstName: string, lastName: string, email: string, birthday: Date, password: string, role: Role, reviews: Review[] }) {
         if (!user.username || user.username.length === 0) {
             throw new Error('Username is required');
         }
@@ -79,6 +79,7 @@ export class User {
     getRole(): Role {
         return this.role;
     }
+
     getReviews(): Review[] {
         return this.reviews;
     }
@@ -96,7 +97,8 @@ export class User {
             this.reviews === user.getReviews()
         );
     }
-    static from({ id, username, firstName, lastName, email, birthday, password, role, reviews,}: UserPrisma & {reviews: ReviewPrisma[]}) {
+
+    static from({ id, username, firstName, lastName, email, birthday, password, role, reviews }: UserPrisma & { reviews: ReviewPrisma[] }) {
         return new User({
             id,
             username,
@@ -106,10 +108,10 @@ export class User {
             birthday,
             password,
             role: role as Role,
-            reviews: reviews.map((review) => Review.from({ 
-                ...review, 
-                film: { id: review.filmId, title: 'Kung Fu Panda', genre: 'fighting', releaseDate: new Date(), description: 'Panda that fights', rating: 4 }, 
-                reviewer: { id: review.reviewerId, username: 'DikkDik', firstName: 'Andries', lastName: 'Jaeken', email: 'andries@gmail.com', password: 'password', birthday: new Date(), role: 'Admin' } 
+            reviews: reviews.map((review) => Review.from({
+                ...review,
+                film: { id: review.filmId, title: 'Default Title', genre: 'fgigher', releaseDate: new Date(), description: 'tertert', rating: 1 },
+                reviewer: { id: review.reviewerId, username, firstName, lastName, email, password, birthday, role }
             })),
         });
     }

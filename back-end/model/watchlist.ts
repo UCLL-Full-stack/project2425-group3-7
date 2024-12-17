@@ -2,14 +2,13 @@ import { Film } from './film';
 import { User } from './user';
 import { Watchlist as WatchlistPrisma, User as UserPrisma, Film as FilmPrisma } from '@prisma/client';
 
-
 export class Watchlist {
     private id?: number;
     private films: Film[];
     private user: User;
     private creationDate: Date;
 
-    constructor(watchlist:{id?: number, films: Film[], user: User, creationDate: Date}) {
+    constructor(watchlist: { id?: number, films: Film[], user: User, creationDate: Date }) {
         this.validate(watchlist);
 
         this.id = watchlist.id;
@@ -17,7 +16,8 @@ export class Watchlist {
         this.user = watchlist.user;
         this.creationDate = watchlist.creationDate;
     }
-    validate(watchlist:{films: Film[], user: User, creationDate: Date}){
+
+    validate(watchlist: { films: Film[], user: User, creationDate: Date }) {
         if (!watchlist.films) {
             throw new Error('Films are required');
         }

@@ -24,30 +24,32 @@ const UserOverview: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            <h1>User Overview</h1>
-            <table>
+        <div className="container mx-auto mt-10">
+            <h1 className="text-2xl font-bold mb-4">Film Lijst</h1>           
+            <table className="min-w-full bg-white">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Birthday</th>
-                        <th>Role</th>
+                        <th className="py-2 px-4 border-b">ID</th>
+                        <th className="py-2 px-4 border-b">Username</th>
+                        <th className="py-2 px-4 border-b">First Name</th>
+                        <th className="py-2 px-4 border-b">Last Name</th>
+                        <th className="py-2 px-4 border-b">Password</th>
+                        <th className="py-2 px-4 border-b">Email</th>
+                        <th className="py-2 px-4 border-b">Birthday</th>
+                        <th className="py-2 px-4 border-b">Role</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users.map((user) => (
                         <tr key={user.id}>
-                            <td>{user.id}</td>
-                            <td>{user.username}</td>
-                            <td>{user.firstName}</td>
-                            <td>{user.lastName}</td>
-                            <td>{user.email}</td>
-                            <td>{new Date(user.birthday!).toLocaleDateString()}</td>
-                            <td>{user.role}</td>
+                            <td className="py-2 px-4 border-b">{user.id}</td>
+                            <td className="py-2 px-4 border-b">{user.username}</td>
+                            <td className="py-2 px-4 border-b">{user.firstName}</td>
+                            <td className="py-2 px-4 border-b">{user.lastName}</td>
+                            <td className="py-2 px-4 border-b">{user.password}</td>
+                            <td className="py-2 px-4 border-b">{user.email}</td>
+                            <td className="py-2 px-4 border-b">{new Date(user.birthday!).toLocaleDateString()}</td>
+                            <td className="py-2 px-4 border-b">{user.role}</td>
                         </tr>
                     ))}
                 </tbody>

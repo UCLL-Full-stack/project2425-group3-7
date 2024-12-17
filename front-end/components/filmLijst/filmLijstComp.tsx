@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import filmService from '@/services/filmService';
 
+interface Film {
+    id: number;
+    title: string;
+    genre: string;
+    releaseDate: string;
+    description: string;
+    rating: number;
+}
+
 const FilmLijstComp: React.FC = () => {
-    const [films, setFilms] = useState([]);
+    const [films, setFilms] = useState<Film[]>([]);
 
     useEffect(() => {
         const fetchFilms = async () => {

@@ -1,5 +1,5 @@
 const getAllFilms = () => {
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/films/allFilms`, {
+    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/films`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

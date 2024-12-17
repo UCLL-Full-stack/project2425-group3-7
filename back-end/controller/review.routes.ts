@@ -45,9 +45,13 @@ const reviewRouter = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Review'
  */
-reviewRouter.get('/',async (req: Request, res: Response) => {
-    const reviews=reviewService.getAllReviews();
-    res.status(200).json(reviews);
+reviewRouter.get('/', async (req: Request, res: Response) => {
+    try {
+        const reviews = await reviewService.getAllReviews();
+        res.status(200).json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching reviews', error });
+    }
 });
 
 export {reviewRouter};

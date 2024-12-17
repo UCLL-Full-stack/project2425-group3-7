@@ -16,11 +16,11 @@ const getAllWatchlists = async (): Promise<Watchlist[]> => {
             ...watchlistPrisma,
             films: watchlistPrisma.films.map(film => ({
                 id: film.filmId,
-                title: '',
-                genre: '',
+                title: 'title',
+                genre: 'genre',
                 releaseDate: new Date(),
-                description: '',
-                rating: 0
+                description: 'desce',
+                rating: 1
             }))
         }));
     } catch (error) {
