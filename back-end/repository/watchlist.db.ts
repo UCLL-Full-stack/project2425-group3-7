@@ -31,5 +31,24 @@ const getWatchlistByUserId = async (userId: number): Promise<Watchlist | null> =
         throw new Error('Database error. See server log for details.');
     }
 };
+const deleteFilmFromWatchlist = async (watchlistId: number, filmId: number): Promise<void> => {
+    try {
+        await database.watchlist.update({
+            where: {
+                id: watchlistId,
+            },
+            data: {
+                films: {
+                    disconnect: {
+                        id: filmId,
+                    },
+                },
+            },
+        });
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
 
-export default { getAllWatchlists, getWatchlistByUserId };
+export default { getAllWatchlists, getWatchlistByUserId, deleteFilmFromWatchlist };

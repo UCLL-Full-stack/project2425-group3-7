@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import WatchlistService from '../../services/WatchlistService';
 import { log } from 'console';
+import {Trash2} from "lucide-react";
 
 interface Film {
     id: number;
@@ -54,9 +55,23 @@ const WatchlistOverview: React.FC = () => {
             fetchWatchlist();
         }
     }, [loggedInUser]);
+    const deleteFilmFromWatchlist = async (watchlistId:number,filmId: number) => {
+        if (!loggedInUser || !watchlist) return;
 
-    return (
-        <div className="container mx-auto mt-10">
+        try {
+            await WatchlistService.deleteFilmFromWatchlist(watchlistId, filmId);
+            setWatchlist({
+                ...watchlist,
+                films: watchlist.films.filter(film => film.id !== filmId)
+            });
+        } catch (error) {
+            console.error('Error deleting film from watchlist:', error);
+            setError('Failed to delete film from watchlist');
+        }
+    };
+    
+        return (
+            <div className="container mx-auto mt-10">
             {error && <div className="text-red-800">{error}</div>}
             {loggedInUser && (
                 <>
@@ -71,12 +86,15 @@ const WatchlistOverview: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {watchlist && watchlist.films && watchlist.films.map((film: Film) => (
+                            {watchlist && watchlist.films.map((film: Film) => (
                                 <tr key={film.id}>
                                     <td className="py-2 px-4 border-b">{film.title}</td>
                                     <td className="py-2 px-4 border-b">{film.genre}</td>
                                     <td className="py-2 px-4 border-b">{new Date(film.releaseDate).toLocaleDateString()}</td>
                                     <td className="py-2 px-4 border-b">{film.rating}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <Trash2 size={20} onClick={() => {deleteFilmFromWatchlist(watchlist.id, film.id)}} className="text-red-500" />
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

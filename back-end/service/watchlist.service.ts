@@ -9,4 +9,7 @@ const getWatchlistByUserId = async (userId: number): Promise<Watchlist | null> =
     return await WatchlistDb.getWatchlistByUserId(userId);
 };
 
-export default { getAllWatchlists, getWatchlistByUserId };
+const deleteFilmFromWatchlist = async (watchlistId: number, filmId: number): Promise<void> => {
+    await WatchlistDb.deleteFilmFromWatchlist(watchlistId, filmId);
+};
+export default { getAllWatchlists, getWatchlistByUserId, deleteFilmFromWatchlist };
