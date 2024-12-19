@@ -55,7 +55,7 @@ filmRouter.get('/',async (req: Request, res: Response) => {
     
 });
 
-filmRouter.post('addFilm',async (req: Request, res: Response) => {
+filmRouter.post('/addFilm',async (req: Request, res: Response) => {
     const film=filmService.addFilm(req.body);
     res.status(200).json(film);
 });

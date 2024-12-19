@@ -1,19 +1,41 @@
 import filmService from "@/services/filmService";
+import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 
 const AddFilmComp = () => {
     const [title, setTitle] = useState("");
+    const [genre, setGenre] = useState("");
+    const [releaseDate, setReleaseDate] = useState("");
+    const [description, setDescription] = useState("");
+    const [rating, setRating] = useState<number | "">("");
     const [error, setError] = useState("");
+    const { t }=useTranslation();
 
-    const handleSubmit = (event: React.FormEvent) => {
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         let isError = false;
-
         setError("");
 
         if (title.trim() === "") {
-            setError("Titel veld is verplicht");
+            setError("Title is required");
+            isError = true;
+        }
+        if (genre.trim() === "") {
+            setError("Genre is required");
+            isError = true;
+        }
+        if (releaseDate.trim() === "") {
+            setError("Release date is required");
+            isError = true;
+        }
+        if (description.trim() === "") {
+            setError("Description is required");
+            isError = true;
+        }
+        if (rating === "" || rating < 0 || rating > 5) {
+            setError("Rating is required and must be between 0 and 5");
             isError = true;
         }
 
@@ -21,16 +43,25 @@ const AddFilmComp = () => {
             return;
         }
 
-        filmService.addFilmToList(title);
-
-        setTitle("");
+        try {
+            await filmService.addFilmToList({ title, genre, releaseDate: new Date(releaseDate), description, rating: Number(rating) });
+            setTitle("");
+            setGenre("");
+            setReleaseDate("");
+            setDescription("");
+            setRating("");
+        } catch (error) {
+            setError("Failed to add film");
+        }
     };
 
     const handleButtonClick = (event: React.MouseEvent) => {
         event.preventDefault();
-        console.log("Button clicked");
-
         setTitle("");
+        setGenre("");
+        setReleaseDate("");
+        setDescription("");
+        setRating("");
     };
 
     return (
@@ -40,27 +71,74 @@ const AddFilmComp = () => {
         >
             {error && <span className="text-red-500 font-bold">{error}</span>}
 
-            <label className="flex flex-col space-y-2">
-                <span className="text-gray-600 font-semibold">Film titel</span>
-                <input 
-                    type="text"
-                    className="border border-gray-300 p-3 rounded-lg shadow-sm"
-                    id="Title-Add"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}    
-                />
+            <label htmlFor="title" className="text-sm font-medium">
+            {t("films.titles")}
             </label>
+            <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
+
+            <label htmlFor="genre" className="text-sm font-medium">
+            {t("films.genre")}
+            </label>
+            <input
+                type="text"
+                id="genre"
+                value={genre}
+                onChange={(event) => setGenre(event.target.value)}
+                className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
+
+            <label htmlFor="releaseDate" className="text-sm font-medium">
+            {t("films.releasedate")}
+            </label>
+            <input
+                type="date"
+                id="releaseDate"
+                value={releaseDate}
+                onChange={(event) => setReleaseDate(event.target.value)}
+                className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
+
+            <label htmlFor="description" className="text-sm font-medium">
+            {t("films.description")}
+            </label>
+            <textarea
+                id="description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
+
+            <label htmlFor="rating" className="text-sm font-medium">
+            {t("films.rating")}
+            </label>
+            <input
+                type="number"
+                id="rating"
+                value={rating}
+                onChange={(event) => setRating(Number(event.target.value))}
+                className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                min="0"
+                max="5"
+                step="0.1"
+            />
 
             <div className="flex justify-around mt-6">
                 <button className="bg-oranje text-white px-4 py-2 rounded-lg shadow-md" id="Cancel" onClick={handleButtonClick}>
-                    Cancel
+                    {t("buttons.cancel")}
                 </button>
 
                 <button className="bg-oranje text-white px-4 py-2 rounded-lg shadow-md" id="Save" type="submit">
-                    Save
+                {t("buttons.submit")}
                 </button>
             </div>
         </form>
-    )
+    );
 };
+
 export default AddFilmComp;

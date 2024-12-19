@@ -1,52 +1,48 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import { set } from 'date-fns';
 
 const prisma = new PrismaClient();
 
 const main = async () => {
-    await prisma.film.deleteMany();
-    await prisma.watchlist.deleteMany();
     await prisma.review.deleteMany({});
-    await prisma.user.deleteMany();
+    await prisma.watchlist.deleteMany({});
+    await prisma.film.deleteMany({});
+    await prisma.user.deleteMany({});
 
     const hashedPassword = await bcrypt.hash('password', 10);
 
     const admin = await prisma.user.create({
         data: {
-            id: 1,
             username: 'admin',
             firstName: 'Admin',
             lastName: 'User',
             email: 'admin@example.com',
             birthday: new Date('1980-01-01'),
-            password: hashedPassword,
+            password: await bcrypt.hash('admin123', 12),
             role: 'admin',
         },
     });
 
     const user1 = await prisma.user.create({
         data: {
-            id: 2,
             username: 'user1',
             firstName: 'User',
             lastName: 'One',
             email: 'user1@example.com',
             birthday: new Date('1990-01-01'),
-            password: hashedPassword,
+            password: await bcrypt.hash('admin123', 12),
             role: 'user',
         },
     });
 
     const user2 = await prisma.user.create({
         data: {
-            id: 3,
             username: 'user2',
             firstName: 'User',
             lastName: 'Two',
             email: 'user2@example.com',
             birthday: new Date('1992-02-02'),
-            password: hashedPassword,
+            password: await bcrypt.hash('admin123', 12),
             role: 'user',
         },
     });
@@ -93,9 +89,9 @@ const main = async () => {
         data: {
             userId: user1.id,
             films: {
-                create: [
-                    { filmId: film1.id },
-                    { filmId: film2.id },
+                connect: [
+                    { id: film1.id },
+                    { id: film2.id },
                 ],
             },
             creationDate: new Date(),
@@ -106,8 +102,8 @@ const main = async () => {
         data: {
             userId: user2.id,
             films: {
-                create: [
-                    { filmId: film1.id },
+                connect: [
+                    { id: film1.id },
                 ],
             },
             creationDate: new Date(),

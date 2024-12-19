@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql" // or your database provider
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,7 +17,7 @@ model User {
   password  String
   role      String
   reviews   Review[]
-  watchlist Watchlist?   @relation(name: "UserWatchlist")
+  watchlist Watchlist[]  @relation("UserWatchlist")
 }
 
 model Review {
@@ -31,30 +31,20 @@ model Review {
 }
 
 model Watchlist {
-  id           Int             @id @default(autoincrement())
-  userId       Int             @unique
-  user         User            @relation(fields: [userId], references: [id], map: "FK_Watchlist_User", name: "UserWatchlist")
-  films        FilmWatchlist[]
-  creationDate DateTime        @default(now())
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], name: "UserWatchlist")
+  films        Film[]   @relation("WatchlistFilms")
+  creationDate DateTime @default(now())
 }
 
 model Film {
-  id          Int              @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
   genre       String
   description String
   releaseDate DateTime
   rating      Float
   reviews     Review[]
-  watchlists  FilmWatchlist[]
-}
-
-model FilmWatchlist {
-  filmId      Int
-  watchlistId Int
-
-  film      Film      @relation(fields: [filmId], references: [id])
-  watchlist Watchlist @relation(fields: [watchlistId], references: [id])
-
-  @@id([filmId, watchlistId])
+  watchlists  Watchlist[] @relation("WatchlistFilms")
 }

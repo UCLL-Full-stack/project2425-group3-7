@@ -1,17 +1,42 @@
 {
-    "app.title": "Filmpie",
+    "app.title": "Filmpie app",
     "general.error": "An error has occurred. Please try again later.",
     "header": {
         "welcome": "Welcome",
         "nav": {
-        "home": "Home",
-        "users": "Users",
-        "films": "Films",
-        "reviews": "Reviews",
-        "watchlist": "Watchlist",
-        "login": "Login",
-        "logout": "Logout"
+            "home": "Home",
+            "users": "Users",
+            "films": "Films",
+            "reviews": "Reviews",
+            "watchlist": "Watchlist",
+            "login": "Login",
+            "logout": "Logout"
         }
+    },
+    "users":{
+        "title": "Users",
+        "username": "Username",
+        "firstname":"First Name",
+        "lastname":"Last Name",
+        "password":"Password",
+        "email":"Email",
+        "birthday":"Birthday",
+        "role":"Role"
+    },
+    "films":{
+        "title":"Films",
+        "titles":"Title",
+        "genre":"Genre",
+        "releasedate":"Release Date",
+        "description":"Description",
+        "Rating":"Rating"
+    },
+    "review":{
+        "title":"Reviews",
+        "reviewer":"Reviewer",
+        "film":"Film",
+        "rating":"Rating",
+        "comment":"Comment"
     },
     "login": {
         "title": "Login",
@@ -22,5 +47,10 @@
             "password": "Password is required"
         },
         "label": { "username": "Username:", "password": "Password:" }
+    },
+    "buttons":{ 
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "addfilm": "Add Film"
     }
 }

@@ -45,8 +45,13 @@ const watchlistRouter = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Watchlist'
  */
-watchlistRouter.get('/',async (req: Request, res: Response) => {
-    const watchlists=watchlistService.getAllWatchlists();
-    res.status(200).json(watchlists);
+watchlistRouter.get('/:userId', async (req: Request, res: Response) => {
+    try {
+        const userId = parseInt(req.params.userId, 10);
+        const watchlist = await watchlistService.getWatchlistByUserId(userId);
+        res.status(200).json(watchlist);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch watchlist', error });
+    }
 });
 export {watchlistRouter};

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import filmService from '@/services/filmService';
+import { useRouter } from "next/router";
+import { useTranslation } from 'next-i18next';
 
 interface Film {
     id: number;
@@ -12,7 +14,9 @@ interface Film {
 
 const FilmLijstComp: React.FC = () => {
     const [films, setFilms] = useState<Film[]>([]);
-
+    const router = useRouter();
+    const { t }=useTranslation();
+    
     useEffect(() => {
         const fetchFilms = async () => {
             try {
@@ -29,15 +33,15 @@ const FilmLijstComp: React.FC = () => {
 
     return (
         <div className="container mx-auto mt-10">
-            <h1 className="text-2xl font-bold mb-4">Film Lijst</h1>
+            <h1 className="text-2xl font-bold mb-4">{t("films.title")}</h1>
             <table className="min-w-full bg-white">
                 <thead>
                     <tr>
-                        <th className="py-2 px-4 border-b">Title</th>
-                        <th className="py-2 px-4 border-b">Genre</th>
-                        <th className="py-2 px-4 border-b">Release Date</th>
-                        <th className="py-2 px-4 border-b">Description</th>
-                        <th className="py-2 px-4 border-b">Rating</th>
+                        <th className="py-2 px-4 border-b">{t("films.titles")}</th>
+                        <th className="py-2 px-4 border-b">{t("films.genre")}</th>
+                        <th className="py-2 px-4 border-b">{t("films.releasedate")}</th>
+                        <th className="py-2 px-4 border-b">{t("films.description")}</th>
+                        <th className="py-2 px-4 border-b">{t("films.rating")}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +56,13 @@ const FilmLijstComp: React.FC = () => {
                     ))}
                 </tbody>
             </table>
+            <button 
+                className="bg-oranje text-white px-4 py-2 rounded-lg shadow-md" 
+                id="AddFilm"
+                onClick={() => router.push('/filmLijst/createFilm')}
+            >
+                {t("buttons.addfilm")}
+            </button>
         </div>
     );
 };

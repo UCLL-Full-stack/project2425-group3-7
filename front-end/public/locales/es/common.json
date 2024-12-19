@@ -1,15 +1,42 @@
 {
-    "app.title": "Cursos App",
+    "app.title": "Filmpie App",
     "general.error": "Se ha producido un error. Vuelva a intentarlo más tarde.",
     "header": {
         "welcome": "Bienvenido",
         "nav": {
-        "home": "Inicio",
-        "users": "Conferenciantes",
-        "films": "Horarios",
-        "reviews": "Conéctese",
-        "watchlist": "Cerrar sesión"
+            "home": "Inicio",
+            "users": "Usuarios",
+            "films": "Películas",
+            "reviews": "Reseñas",
+            "watchlist": "Lista de seguimiento",
+            "login": "Iniciar sesión",
+            "logout": "Cerrar sesión"
         }
+    },
+    "users": {
+        "title": "Usuarios",
+        "username": "Nombre de usuario",
+        "firstname": "Nombre",
+        "lastname": "Apellido",
+        "password": "Contraseña",
+        "email": "Correo electrónico",
+        "birthday": "Fecha de nacimiento",
+        "role": "Rol"
+    },
+    "films": {
+        "title": "Películas",
+        "titles": "Título",
+        "genre": "Género",
+        "releasedate": "Fecha de lanzamiento",
+        "description": "Descripción",
+        "Rating": "Calificación"
+    },
+    "review": {
+        "title": "Reseñas",
+        "reviewer": "Reseñador",
+        "film": "Película",
+        "rating": "Calificación",
+        "comment": "Comentario"
     },
     "login": {
         "title": "Inicio de sesión",
@@ -20,5 +47,10 @@
             "password": "Se requiere contraseña"
         },
         "label": { "username": "Nombre de usuario:", "password": "Contraseña:" }
+    },
+    "buttons":{ 
+        "submit": "Enviar",
+        "cancel": "Cancelar",
+        "addfilm": "Agregar Película"
     }
 }

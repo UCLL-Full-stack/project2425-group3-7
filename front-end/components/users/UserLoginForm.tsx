@@ -55,7 +55,7 @@ const UserLoginForm: React.FC = () => {
         },
       ]);
       const user = await response.json();
-      localStorage.setItem("loggedInUser", JSON.stringify({token: user.token, fullname: user.fullname, username: user.username, role: user.role}));
+      localStorage.setItem("loggedInUser", JSON.stringify({token: user.token, fullname: user.fullname, username: user.username, role: user.role, userid: user.id}));
       setTimeout(() => {
         router.push("/");
       }, 2000);

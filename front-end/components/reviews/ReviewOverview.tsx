@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReviewService from '../../services/ReviewService';
+import { useTranslation } from 'next-i18next';
 
 export interface Review {
     id: number;
@@ -14,9 +15,9 @@ export interface Review {
 }
 const ReviewOverview: React.FC = () => {
     const [reviews, setReviews] = useState<Review[]>([]);
-
+    const { t }=useTranslation();
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchReviews = async () => {
             try {
                 const response = await ReviewService.getAllReviews();
                 const data = await response.json();
@@ -26,24 +27,24 @@ const ReviewOverview: React.FC = () => {
                     console.error('API response is not an array:', data);
                 }
             } catch (error) {
-                console.error('Error fetching users:', error);
+                console.error('Error fetching reviews:', error);
             }
         };
 
-        fetchUsers();
+        fetchReviews();
     }, []);
 
     return (
         <div className="container mx-auto mt-10">
-            <h1 className="text-2xl font-bold mb-4">Review Overview</h1>
+            <h1 className="text-2xl font-bold mb-4">{t("review.title")}</h1>
             <table className="min-w-full bg-white">
                 <thead>
                     <tr>
                         <th className="py-2 px-4 border-b">ID</th>
-                        <th className="py-2 px-4 border-b">Reviewer</th>
-                        <th className="py-2 px-4 border-b">Film</th>
-                        <th className="py-2 px-4 border-b">Rating</th>
-                        <th className="py-2 px-4 border-b">Comment</th>
+                        <th className="py-2 px-4 border-b">{t("review.reviewer")}</th>
+                        <th className="py-2 px-4 border-b">{t("review.film")}</th>
+                        <th className="py-2 px-4 border-b">{t("review.rating")}</th>
+                        <th className="py-2 px-4 border-b">{t("review.comment")}</th>
                     </tr>
                 </thead>
                 <tbody>

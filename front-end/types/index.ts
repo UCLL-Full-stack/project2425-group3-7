@@ -25,7 +25,7 @@ export type Film = {
     releaseDate: Date;
     description: string;
     rating: number;
-    reviews: Review[];
+    reviews?: Review[];
 }
 export type Watchlist = {
     id?: number;

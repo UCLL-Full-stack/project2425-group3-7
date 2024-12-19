@@ -1,6 +1,5 @@
-import Watchlist from '@/pages/watchlist';
-import WatchlistService from '@/services/WatchlistService';
 import React, { useEffect, useState } from 'react';
+import WatchlistService from '../../services/WatchlistService';
 
 interface Film {
     id: number;
@@ -16,47 +15,73 @@ interface Watchlist {
     creationDate: string;
 }
 
+interface User {
+    id: number;
+    username: string;
+    // Add other user properties as needed
+}
+
 const WatchlistOverview: React.FC = () => {
     const [watchlist, setWatchlist] = useState<Watchlist | null>(null);
+    const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("loggedInUser") as string);
+        if (!user) {
+            setError("You must be logged in to view this page.");
+        } else {
+            setLoggedInUser(user);
+        }
+    }, []);
 
     useEffect(() => {
         const fetchWatchlist = async () => {
             try {
-                const response = await WatchlistService.getWatchlist();
-                const data = await response.json();
+                if (!loggedInUser) {
+                    throw new Error('User not logged in');
+                }
+                const data = await WatchlistService.getWatchlist(loggedInUser.id.toString());
                 setWatchlist(data);
             } catch (error) {
                 console.error('Error fetching watchlist:', error);
+                setError('Failed to fetch watchlist');
             }
         };
 
-        fetchWatchlist();
-    }, []);
-
+        if (loggedInUser) {
+            fetchWatchlist();
+        }
+    }, [loggedInUser]);
 
     return (
-        <div>
-            <h1>Your Watchlist</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Genre</th>
-                        <th>Release Date</th>
-                        <th>Rating</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {watchlist && watchlist.films.map((film: Film) => (
-                        <tr key={film.id}>
-                            <td>{film.title}</td>
-                            <td>{film.genre}</td>
-                            <td>{new Date(film.releaseDate).toLocaleDateString()}</td>
-                            <td>{film.rating}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="container mx-auto mt-10">
+            {error && <div className="text-red-800">{error}</div>}
+            {loggedInUser && (
+                <>
+                    <h1 className="text-2xl font-bold mb-4">Your Watchlist</h1>
+                    <table className="min-w-full bg-white">
+                        <thead>
+                            <tr>
+                                <th className="py-2 px-4 border-b">Title</th>
+                                <th className="py-2 px-4 border-b">Genre</th>
+                                <th className="py-2 px-4 border-b">Release Date</th>
+                                <th className="py-2 px-4 border-b">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {watchlist && watchlist.films && watchlist.films.map((film: Film) => (
+                                <tr key={film.id}>
+                                    <td className="py-2 px-4 border-b">{film.title}</td>
+                                    <td className="py-2 px-4 border-b">{film.genre}</td>
+                                    <td className="py-2 px-4 border-b">{new Date(film.releaseDate).toLocaleDateString()}</td>
+                                    <td className="py-2 px-4 border-b">{film.rating}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </>
+            )}
         </div>
     );
 };
