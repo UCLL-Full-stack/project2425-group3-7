@@ -4,13 +4,18 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 const main = async () => {
-    await prisma.review.deleteMany({});
-    await prisma.watchlist.deleteMany({});
-    await prisma.film.deleteMany({});
-    await prisma.user.deleteMany({});
-
-    const hashedPassword = await bcrypt.hash('password', 10);
-
+    await prisma.$executeRawUnsafe('TRUNCATE TABLE "User" RESTART IDENTITY CASCADE;');
+    await prisma.$executeRawUnsafe('TRUNCATE TABLE "Film" RESTART IDENTITY CASCADE;');
+    await prisma.$executeRawUnsafe('TRUNCATE TABLE "Review" RESTART IDENTITY CASCADE;');
+    await prisma.$executeRawUnsafe('TRUNCATE TABLE "Watchlist" RESTART IDENTITY CASCADE;');
+    
+    await prisma.user.deleteMany();
+    await prisma.film.deleteMany();
+    await prisma.review.deleteMany();
+    await prisma.watchlist.deleteMany();
+    
+    
+    
     const admin = await prisma.user.create({
         data: {
             username: 'admin',
@@ -164,11 +169,13 @@ const main = async () => {
     console.log('Database has been seeded. 🌱');
 };
 
-main()
-    .catch((e) => {
-        console.error(e);
-        process.exit(1);
-    })
-    .finally(async () => {
+(async () => {
+    try {
+        await main();
         await prisma.$disconnect();
-    });
+    } catch (error) {
+        console.error(error);
+        await prisma.$disconnect();
+        process.exit(1);
+    }
+})();
