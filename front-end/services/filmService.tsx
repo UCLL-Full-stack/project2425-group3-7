@@ -15,7 +15,7 @@ const addFilmToList = async (film:Film) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ film }),
+        body: JSON.stringify( film),
     });
     if (!response.ok) {
         throw new Error('Failed to add film');

@@ -19,13 +19,15 @@ const getAllUsers = async (): Promise<User[]> => {
 };
 const getUserById = async ({ id }: { id: number }): Promise<User | null> => {
     try {
+        if (!id) {
+            throw new Error('User ID is required');
+        }
         const userPrisma = await database.user.findUnique({
             where: { id },
             include: {
                 reviews: true,
             },
         });
-
         return userPrisma ? User.from(userPrisma) : null;
     } catch (error) {
         console.error(error);

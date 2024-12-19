@@ -36,7 +36,8 @@
         "reviewer": "Reseñador",
         "film": "Película",
         "rating": "Calificación",
-        "comment": "Comentario"
+        "comment": "Comentario",
+        "selectFilm": "Seleccionar Película"
     },
     "login": {
         "title": "Inicio de sesión",

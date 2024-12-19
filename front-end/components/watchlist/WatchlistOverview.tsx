@@ -42,7 +42,6 @@ const WatchlistOverview: React.FC = () => {
                 if (!loggedInUser) {
                     throw new Error('User not logged in');
                 }
-                console.log(loggedInUser);
                 const data = await WatchlistService.getWatchlist(loggedInUser.userid);
                 setWatchlist(data);
             } catch (error) {

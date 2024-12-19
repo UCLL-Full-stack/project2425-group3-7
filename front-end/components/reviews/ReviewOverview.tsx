@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReviewService from '../../services/ReviewService';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export interface Review {
     id: number;
@@ -16,6 +17,8 @@ export interface Review {
 const ReviewOverview: React.FC = () => {
     const [reviews, setReviews] = useState<Review[]>([]);
     const { t }=useTranslation();
+    const router = useRouter();
+    
     useEffect(() => {
         const fetchReviews = async () => {
             try {
@@ -57,6 +60,13 @@ const ReviewOverview: React.FC = () => {
                     ))}
                 </tbody>
             </table>
+            <button 
+                className="bg-oranje text-white px-4 py-2 rounded-lg shadow-md" 
+                id="AddReview"
+                onClick={() => router.push('/reviews/createReview')}
+            >
+                add review
+            </button>
         </div>
     );
 };

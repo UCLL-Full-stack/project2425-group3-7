@@ -55,9 +55,13 @@ filmRouter.get('/',async (req: Request, res: Response) => {
     
 });
 
-filmRouter.post('/addFilm',async (req: Request, res: Response) => {
-    const film=filmService.addFilm(req.body);
-    res.status(200).json(film);
+filmRouter.post('/addFilm', async (req: Request, res: Response) => {
+    try {
+        const film = await filmService.addFilm(req.body);
+        res.status(201).json(film);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to add film', error });
+    }
 });
 
 export {filmRouter};

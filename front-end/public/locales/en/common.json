@@ -36,7 +36,8 @@
         "reviewer":"Reviewer",
         "film":"Film",
         "rating":"Rating",
-        "comment":"Comment"
+        "comment":"Comment",
+        "selectFilm":"Select Film"
     },
     "login": {
         "title": "Login",

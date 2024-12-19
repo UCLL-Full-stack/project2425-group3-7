@@ -16,7 +16,7 @@ export type Review = {
     userId: number;
     filmId: number;
     rating: number;
-    review: string;
+    comment: string;
 }
 export type Film = {
     id?: number;

@@ -3,25 +3,26 @@ import userDb from "../repository/user.db";
 import bcrypt from 'bcrypt';
 import { generateJwtToken } from "../util/jwt";
 import { AuthenticationResponse, UserInput } from "../types";
+import database from "../repository/database";
 
 const getAllUsers = async (): Promise<User[]> => userDb.getAllUsers();
 
 
 const getUserById = async ({ id }: { id: number }): Promise<User | null> => {
-    if (id <= 0) {
-        return null;
-    }
-    const user = await userDb.getUserById({id});
-    if (!user) {
-        throw new Error('User not found');
-    }
     try {
-        return user;
+        const userPrisma = await database.user.findUnique({
+            where: { id },
+            include: {
+                reviews: true,
+                watchlist: true,
+            },
+        });
+        return userPrisma ? User.from(userPrisma) : null;
     } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
     }
-}
+};
 
 const getUserByUsername = async ({ username }: { username: string }): Promise<User | null> => {
     return await userDb.getUserByUsername({ username });
