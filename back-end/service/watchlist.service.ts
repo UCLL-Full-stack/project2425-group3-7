@@ -12,4 +12,14 @@ const getWatchlistByUserId = async (userId: number): Promise<Watchlist | null> =
 const deleteFilmFromWatchlist = async (watchlistId: number, filmId: number): Promise<void> => {
     await WatchlistDb.deleteFilmFromWatchlist(watchlistId, filmId);
 };
-export default { getAllWatchlists, getWatchlistByUserId, deleteFilmFromWatchlist };
+const addFilmToWatchlist = async (watchlistId: number, filmId: number): Promise<void> => {
+    await WatchlistDb.addFilmToWatchlist(watchlistId, filmId);
+};
+const getWatchlistIdByUserId = async (userId: number): Promise<Watchlist> => {
+    const watchlist = await WatchlistDb.getWatchlistByUserId(userId);
+    if (!watchlist) {
+        throw new Error(`Watchlist not found for userId: ${userId}`);
+    }
+    return watchlist;
+};
+export default { getAllWatchlists, getWatchlistByUserId, deleteFilmFromWatchlist,addFilmToWatchlist,getWatchlistIdByUserId};

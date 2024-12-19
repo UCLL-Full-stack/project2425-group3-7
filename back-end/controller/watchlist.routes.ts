@@ -88,4 +88,23 @@ watchlistRouter.delete('/:watchlistId/film/:filmId', async (req: Request, res: R
         res.status(500).json({ message: 'Failed to delete film from watchlist', error });
     }
 });
+watchlistRouter.post('/:watchlistId/film/:filmId', async (req: Request, res: Response) => {
+    try {
+        const watchlistId = parseInt(req.params.watchlistId, 10);
+        const filmId = parseInt(req.params.filmId, 10);
+        await watchlistService.addFilmToWatchlist(watchlistId, filmId);
+        res.status(200).json({ message: 'Film added to watchlist' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to add film to watchlist', error });
+    }
+});
+watchlistRouter.get('/user/:userId', async (req: Request, res: Response) => {
+    try {
+        const userId = parseInt(req.params.userId, 10);
+        const watchlist = await watchlistService.getWatchlistIdByUserId(userId);
+        res.status(200).json(watchlist);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch watchlist ID', error });
+    }
+});
 export {watchlistRouter};

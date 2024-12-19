@@ -165,6 +165,19 @@ const main = async () => {
             creationDate: new Date(),
         },
     });
+    const watchlist3 = await prisma.watchlist.create({
+        data: {
+            userId: admin.id,
+            films: {
+                connect: [
+                    { id: film1.id },
+                    { id: film7.id },
+                ],
+            },
+            creationDate: new Date(),
+        },
+    });
+
 
     console.log('Database has been seeded. 🌱');
 };

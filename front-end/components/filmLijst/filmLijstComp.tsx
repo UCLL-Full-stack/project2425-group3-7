@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import filmService from '@/services/filmService';
 import { useRouter } from "next/router";
 import { useTranslation } from 'next-i18next';
+import { PlusCircle } from 'lucide-react';
+import WatchlistService from '@/services/WatchlistService';
 
 interface Film {
     id: number;
@@ -11,14 +13,29 @@ interface Film {
     description: string;
     rating: number;
 }
+interface User {
+    id: number;
+    username: string;
+    userid: number;
+}
+
 
 const FilmLijstComp: React.FC = () => {
     const [films, setFilms] = useState<Film[]>([]);
     const router = useRouter();
     const { t }=useTranslation();
     const [userRole, setUserRole] = useState<string | null>(null);
-
-    
+    const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [watchlist, setWatchlist] = useState<Film[] | null>(null);
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('loggedInUser') as string);
+        if (!user) {
+            setError('You must be logged in to view this page.');
+        } else {
+            setLoggedInUser(user);
+        }
+    }, []);
     useEffect(() => {
         const fetchFilms = async () => {
             try {
@@ -40,6 +57,21 @@ const FilmLijstComp: React.FC = () => {
         fetchFilms();
         fetchUserRole();
     }, []);
+    const addFilmToWatchlist = async (filmId: number) => {
+        try {
+            if (!loggedInUser) {
+                throw new Error('User not logged in');
+            }
+            const watchlist = await WatchlistService.getWatchlistIdByUserId(loggedInUser.userid);
+            await WatchlistService.addFilmToWatchlist(watchlist.id, filmId);
+            const data = await WatchlistService.getWatchlist(watchlist.id);
+            setWatchlist(data);
+            alert('Film added to watchlist');
+        } catch (error) {
+            console.error('Error adding film to watchlist:', error);
+            alert('Failed to add film to watchlist');
+        }
+    };
 
     return (
         <div className="container mx-auto mt-10">
@@ -52,6 +84,8 @@ const FilmLijstComp: React.FC = () => {
                         <th className="py-2 px-4 border-b">{t("films.releasedate")}</th>
                         <th className="py-2 px-4 border-b">{t("films.description")}</th>
                         <th className="py-2 px-4 border-b">{t("films.rating")}</th>
+                        <th className="py-2 px-4 border-b"></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +96,9 @@ const FilmLijstComp: React.FC = () => {
                             <td className="py-2 px-4 border-b">{new Date(film.releaseDate).toLocaleDateString()}</td>
                             <td className="py-2 px-4 border-b">{film.description}</td>
                             <td className="py-2 px-4 border-b">{film.rating}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <PlusCircle size={20} onClick={() => addFilmToWatchlist(film.id)} className="text-green-500 cursor-pointer" />
+                            </td>
                         </tr>
                     ))}
                 </tbody>
