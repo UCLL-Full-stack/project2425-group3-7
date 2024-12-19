@@ -16,6 +16,8 @@ const FilmLijstComp: React.FC = () => {
     const [films, setFilms] = useState<Film[]>([]);
     const router = useRouter();
     const { t }=useTranslation();
+    const [userRole, setUserRole] = useState<string | null>(null);
+
     
     useEffect(() => {
         const fetchFilms = async () => {
@@ -28,7 +30,15 @@ const FilmLijstComp: React.FC = () => {
             }
         };
 
+        const fetchUserRole = () => {
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') as string);
+            if (loggedInUser) {
+                setUserRole(loggedInUser.role);
+            }
+        };
+
         fetchFilms();
+        fetchUserRole();
     }, []);
 
     return (
@@ -56,6 +66,7 @@ const FilmLijstComp: React.FC = () => {
                     ))}
                 </tbody>
             </table>
+            {userRole === 'admin' && (
             <button 
                 className="bg-oranje text-white px-4 py-2 rounded-lg shadow-md" 
                 id="AddFilm"
@@ -63,6 +74,7 @@ const FilmLijstComp: React.FC = () => {
             >
                 {t("buttons.addfilm")}
             </button>
+            )}
         </div>
     );
 };
