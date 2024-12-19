@@ -1,4 +1,4 @@
-const getWatchlist = async (userId: string) => {
+const getWatchlist = async (userId: number) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/watchlist/${userId}`, {
         method: 'GET',
         headers: {

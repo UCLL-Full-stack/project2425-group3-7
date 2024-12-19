@@ -31,7 +31,6 @@ const UserOverview: React.FC = () => {
             <table className="min-w-full bg-white">
                 <thead>
                     <tr>
-                        <th className="py-2 px-4 border-b">ID</th>
                         <th className="py-2 px-4 border-b">{t("users.username")}</th>
                         <th className="py-2 px-4 border-b">{t("users.firstname")}</th>
                         <th className="py-2 px-4 border-b">{t("users.lastname")}</th>
@@ -44,7 +43,6 @@ const UserOverview: React.FC = () => {
                 <tbody>
                     {users.map((user) => (
                         <tr key={user.id}>
-                            <td className="py-2 px-4 border-b">{user.id}</td>
                             <td className="py-2 px-4 border-b">{user.username}</td>
                             <td className="py-2 px-4 border-b">{user.firstName}</td>
                             <td className="py-2 px-4 border-b">{user.lastName}</td>

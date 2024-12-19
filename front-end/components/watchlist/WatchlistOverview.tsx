@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import WatchlistService from '../../services/WatchlistService';
+import { log } from 'console';
 
 interface Film {
     id: number;
@@ -18,7 +19,7 @@ interface Watchlist {
 interface User {
     id: number;
     username: string;
-    // Add other user properties as needed
+    userid: number;
 }
 
 const WatchlistOverview: React.FC = () => {
@@ -41,7 +42,8 @@ const WatchlistOverview: React.FC = () => {
                 if (!loggedInUser) {
                     throw new Error('User not logged in');
                 }
-                const data = await WatchlistService.getWatchlist(loggedInUser.id.toString());
+                console.log(loggedInUser);
+                const data = await WatchlistService.getWatchlist(loggedInUser.userid);
                 setWatchlist(data);
             } catch (error) {
                 console.error('Error fetching watchlist:', error);

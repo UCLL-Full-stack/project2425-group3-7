@@ -44,6 +44,7 @@ const authenticate = async ({ username, password }: UserInput): Promise<Authenti
         username: username,
         fullname: `${user.getFirstName()} ${user.getLastName()}`,
         role: user.getRole(),
+        userid: user.getId() ?? 0
     };
 };
 

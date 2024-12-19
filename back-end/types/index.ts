@@ -39,4 +39,5 @@ export type AuthenticationResponse = {
     username: string;
     fullname: string;
     role: string;
+    userid: number;
 };

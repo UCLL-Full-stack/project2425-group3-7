@@ -40,7 +40,6 @@ const ReviewOverview: React.FC = () => {
             <table className="min-w-full bg-white">
                 <thead>
                     <tr>
-                        <th className="py-2 px-4 border-b">ID</th>
                         <th className="py-2 px-4 border-b">{t("review.reviewer")}</th>
                         <th className="py-2 px-4 border-b">{t("review.film")}</th>
                         <th className="py-2 px-4 border-b">{t("review.rating")}</th>
@@ -50,7 +49,6 @@ const ReviewOverview: React.FC = () => {
                 <tbody>
                     {reviews.map((review) => (
                         <tr key={review.id}>
-                            <td className="py-2 px-4 border-b">{review.id}</td>
                             <td className="py-2 px-4 border-b">{review.reviewer.username}</td>
                             <td className="py-2 px-4 border-b">{review.film.title}</td>
                             <td className="py-2 px-4 border-b">{review.rating}</td>

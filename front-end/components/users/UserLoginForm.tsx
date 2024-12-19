@@ -13,7 +13,8 @@ const UserLoginForm: React.FC = () => {
   const [statusMessages, setStatusMessages] = useState<StatusMessage[]>([]);
   const router = useRouter();
 
-  const { t }=useTranslation();
+  const { t } = useTranslation();
+
   const clearErrors = () => {
     setNameError(null);
     setPasswordError(null);
@@ -23,13 +24,13 @@ const UserLoginForm: React.FC = () => {
   const validate = (): boolean => {
     let result = true;
 
-    if (!name && name.trim() === "") {
+    if (!name || name.trim() === "") {
       setNameError(t("login.validate.name"));
       result = false;
     }
 
-    if (!password && password.trim() === "") {
-      setNameError(t("login.validate.password"));
+    if (!password || password.trim() === "") {
+      setPasswordError(t("login.validate.password"));
       result = false;
     }
 
@@ -47,7 +48,7 @@ const UserLoginForm: React.FC = () => {
     const user = { username: name, password };
     const response = await UserService.loginUser(user);
 
-    if (response.status == 200) {      
+    if (response.status === 200) {
       setStatusMessages([
         {
           message: t("login.success"),
@@ -55,11 +56,17 @@ const UserLoginForm: React.FC = () => {
         },
       ]);
       const user = await response.json();
-      localStorage.setItem("loggedInUser", JSON.stringify({token: user.token, fullname: user.fullname, username: user.username, role: user.role, userid: user.id}));
+      localStorage.setItem("loggedInUser", JSON.stringify({
+        token: user.token,
+        fullname: user.fullname,
+        username: user.username,
+        role: user.role,
+        userid: user.userid
+      }));
       setTimeout(() => {
         router.push("/");
       }, 2000);
-    } else if (response.status == 401) {
+    } else if (response.status === 401) {
       const { errorMessage } = await response.json();
       setStatusMessages([{ message: errorMessage, type: "error" }]);
     } else {
@@ -102,7 +109,7 @@ const UserLoginForm: React.FC = () => {
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue:500 block w-full p-2.5"
+            className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
           {nameError && <div className="text-red-800 ">{nameError}</div>}
         </div>
@@ -121,7 +128,7 @@ const UserLoginForm: React.FC = () => {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue:500 block w-full p-2.5"
+              className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
             {passwordError && (
               <div className=" text-red-800">{passwordError}</div>

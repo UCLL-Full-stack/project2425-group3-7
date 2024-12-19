@@ -67,6 +67,56 @@ const main = async () => {
         },
     });
 
+    const film3 = await prisma.film.create({
+        data: {
+            title: 'Interstellar',
+            genre: 'Sci-Fi',
+            description: 'A journey through space and time',
+            releaseDate: new Date('2014-11-07'),
+            rating: 4.6,
+        },
+    });
+
+    const film4 = await prisma.film.create({
+        data: {
+            title: 'The Dark Knight',
+            genre: 'Action',
+            description: 'A superhero battles crime in Gotham',
+            releaseDate: new Date('2008-07-18'),
+            rating: 4.9,
+        },
+    });
+
+    const film5 = await prisma.film.create({
+        data: {
+            title: 'Pulp Fiction',
+            genre: 'Crime',
+            description: 'A series of interconnected stories',
+            releaseDate: new Date('1994-10-14'),
+            rating: 4.5,
+        },
+    });
+
+    const film6 = await prisma.film.create({
+        data: {
+            title: 'Fight Club',
+            genre: 'Drama',
+            description: 'An insomniac and a soap salesman form an underground fight club',
+            releaseDate: new Date('1999-10-15'),
+            rating: 4.4,
+        },
+    });
+
+    const film7 = await prisma.film.create({
+        data: {
+            title: 'Forrest Gump',
+            genre: 'Drama',
+            description: 'The story of a man with a low IQ who achieves great things',
+            releaseDate: new Date('1994-07-06'),
+            rating: 4.8,
+        },
+    });
+
     const review1 = await prisma.review.create({
         data: {
             rating: 5,
@@ -104,6 +154,7 @@ const main = async () => {
             films: {
                 connect: [
                     { id: film1.id },
+                    { id: film7.id },
                 ],
             },
             creationDate: new Date(),
