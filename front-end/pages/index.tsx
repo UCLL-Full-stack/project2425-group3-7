@@ -1,7 +1,7 @@
 import Header from "@/components/header";
-import UserOverview from "@/components/users/UserOverview";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import HomePage from "../components/homepage/HomePage";
 
 const Home: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
 
       <Header />
       <main className="min-h-screen bg-gray-100">
-          <UserOverview />
+        <HomePage />
       </main>
     </>
   );

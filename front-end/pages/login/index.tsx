@@ -3,6 +3,7 @@ import Header from "../../components/header";
 import UserLoginForm from "../../components/users/UserLoginForm";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from "next-i18next";
+import UserOverview from "@/components/users/UserOverview";
 const Login: React.FC = () => {
     const { t }= useTranslation();
     return (
@@ -14,6 +15,7 @@ const Login: React.FC = () => {
             <main>
                 <section className="p-6 min-h-screen flex flex-col items-center">
                     <UserLoginForm />
+                    <UserOverview />
                 </section>
             </main>
         </>
