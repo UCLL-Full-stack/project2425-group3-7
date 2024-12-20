@@ -8,14 +8,14 @@ const Header: React.FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const user = localStorage.getItem("loggedInUser");
+    const user = sessionStorage.getItem("loggedInUser");
     if (user) {
       setLoggedInUser(JSON.parse(user));
     }
   }, []);
 
   const handleClick = () => {
-    localStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
   };
 
@@ -31,24 +31,28 @@ const Header: React.FC = () => {
         >
           {t('header.nav.home')}
         </Link>
-        <Link
-          href="/filmLijst"
-          className="px-6 py-2 text-xl text-white rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          {t('header.nav.films')}
-        </Link>
-        <Link
-          href="/reviews"
-          className="px-6 py-2 text-xl text-white rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          {t('header.nav.reviews')}
-        </Link>
-        <Link
-          href="/watchlist"
-          className="px-6 py-2 text-xl text-white rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          {t('header.nav.watchlist')}
-        </Link>
+        {loggedInUser ? (
+          <>
+            <Link
+              href="/filmLijst"
+              className="px-6 py-2 text-xl text-white rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              {t('header.nav.films')}
+            </Link>
+            <Link
+              href="/reviews"
+              className="px-6 py-2 text-xl text-white rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              {t('header.nav.reviews')}
+            </Link>
+            <Link
+              href="/watchlist"
+              className="px-6 py-2 text-xl text-white rounded-lg hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              {t('header.nav.watchlist')}
+            </Link>
+          </>
+        ) : null}
         {!loggedInUser && (
           <Link
             href="/login"

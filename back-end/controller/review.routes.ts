@@ -57,6 +57,8 @@ reviewRouter.get('/', async (req: Request, res: Response) => {
  * @swagger
  * /reviews:
  *   post:
+ *     security:
+ *        - bearerAuth: [] 
  *     summary: Add a new review.
  *     requestBody:
  *       required: true

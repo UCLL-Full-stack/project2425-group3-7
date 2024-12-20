@@ -9,7 +9,7 @@ const AddFilm: React.FC = () => {
     return (
         <>
             <Head>
-                <title>AddFilm</title>
+                <title>{t('app.title')}</title>
                 <meta name="description" content="AddFilm" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>

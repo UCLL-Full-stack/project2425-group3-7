@@ -33,6 +33,9 @@
  *            password:
  *              type: string
  *              description: User password.
+ *            role:
+ *              type: string
+ *              description: The user's role.
  */
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user.service';
@@ -63,6 +66,47 @@ userRouter.get('/', async (req: Request, res: Response) => {
     }
 });
 
+/**
+* @swagger
+* /users/login:
+*   post:
+*     security:
+*        - bearerAuth: [] 
+*     summary: Authenticate a user.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               username:
+*                 type: string
+*               password:
+*                 type: string
+*     responses:
+*       200:
+*         description: Authentication successful.
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 message:
+*                   type: string
+*                 token:
+*                   type: string
+*                 username:
+*                   type: string
+*                 fullname:
+*                   type: string
+*                 role:
+*                   type: string
+*                 userid:
+*                   type: integer
+*       401:
+*         description: Authentication failed.
+*/
 userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const userInput = <UserInput>req.body;

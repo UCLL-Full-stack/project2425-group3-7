@@ -54,7 +54,29 @@ filmRouter.get('/',async (req: Request, res: Response) => {
     res.status(200).json(films);
     
 });
-
+/**
+ * @swagger
+ * /films/addFilm:
+ *   post:
+ *     security:
+ *        - bearerAuth: [] 
+ *     summary: Add a new film.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Film'
+ *     responses:
+ *       201:
+ *         description: Film added successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Film'
+ *       500:
+ *         description: Failed to add film.
+ */
 filmRouter.post('/addFilm', async (req: Request, res: Response) => {
     try {
         const film = await filmService.addFilm(req.body);

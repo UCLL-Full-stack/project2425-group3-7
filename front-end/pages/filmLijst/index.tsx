@@ -8,7 +8,7 @@ const FilmLijst: React.FC = () => {
     return (
         <>
             <Head>
-                <title>Films</title>
+                <title>{t('app.title')}</title>
                 <meta name="description" content="FilmsLijst" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>

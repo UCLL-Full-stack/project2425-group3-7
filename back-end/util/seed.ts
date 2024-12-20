@@ -51,6 +51,17 @@ const main = async () => {
             role: 'user',
         },
     });
+    const guest = await prisma.user.create({
+        data: {
+            username: 'guest',
+            firstName: 'Guest',
+            lastName: 'User',
+            email: 'guest@example.com',
+            birthday: new Date('1990-01-01'),
+            password: await bcrypt.hash('admin123', 12),
+            role: 'guest',
+        },
+    });
 
     const film1 = await prisma.film.create({
         data: {
@@ -177,7 +188,7 @@ const main = async () => {
             creationDate: new Date(),
         },
     });
-
+    
 
     console.log('Database has been seeded. 🌱');
 };

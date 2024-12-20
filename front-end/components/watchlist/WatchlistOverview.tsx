@@ -29,8 +29,8 @@ const WatchlistOverview: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("loggedInUser") as string);
-        if (!user) {
+        const user = JSON.parse(sessionStorage.getItem("loggedInUser") as string);
+        if (!user || user.role === 'guest') {
             setError("You must be logged in to view this page.");
         } else {
             setLoggedInUser(user);

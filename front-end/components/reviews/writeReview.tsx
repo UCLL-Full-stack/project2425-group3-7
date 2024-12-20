@@ -23,7 +23,7 @@ const WriteReview: React.FC = () => {
     const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
     
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("loggedInUser") as string);
+        const user = JSON.parse(sessionStorage.getItem("loggedInUser") as string);
         if (!user) {
             setError("You must be logged in to view this page.");
         } else {

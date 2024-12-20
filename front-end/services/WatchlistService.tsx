@@ -3,7 +3,7 @@ const getWatchlist = async (userId: number) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
         },
     });
     if (!response.ok) {
@@ -16,7 +16,7 @@ const deleteFilmFromWatchlist = async (watchlistId: number, filmId: number) => {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
         },
     });
     if (!response.ok) {
@@ -29,7 +29,7 @@ const addFilmToWatchlist = async (watchlistId: number, filmId: number) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
         },
     });
     if (!response.ok) {
@@ -42,7 +42,7 @@ const getWatchlistIdByUserId = async (userId: number) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
         },
     });
     if (!response.ok) {
